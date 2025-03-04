@@ -19,6 +19,7 @@
 
 .logo a {
     color: #ffffff;
+    text-decoration: none; 
 }
 
 .dropdown {

@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from '../assets/logo.jpg';
 
 import './utils.css'
 
@@ -9,12 +8,10 @@ const Header: React.FC = () => {
         <div className='header_container'>
             <div className='logo'>
                 <i className="fa fa-qrcode"></i>
-                <a href="http://google.com">QR_Connect</a>
+                <a href="http://google.com">Logo_for_shop</a>
             </div>
             <div className="dropdown">
-                <button className="dropbtn">Dropdown
-                    <i className="fa fa-caret-down"></i>
-                </button>
+                <button className="dropbtn">Dropdown </button>
                 <div className="dropdown-content">
                     <a href="#">Profile</a>
                     <a href="#">Link 2</a>
