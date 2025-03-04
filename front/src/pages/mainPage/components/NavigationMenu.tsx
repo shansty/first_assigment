@@ -5,6 +5,7 @@ const NavigationMenu = () => {
     const categories = ["Books", "Toys", "Food", "Beverages", "Electronics", "Fashion"]
     return (
         <div className='nav_menu_container'>
+            <h2>Categories: </h2>
             {categories.map(category => (
                 <div className="category">
                     <Link to={`/?category=${category}`}><h3>{category}</h3></Link>

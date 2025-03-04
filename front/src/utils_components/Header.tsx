@@ -1,5 +1,5 @@
 import React from 'react';
-
+import logo from '../assets/logo_only_white.jpg';
 import './utils.css'
 
 
@@ -7,8 +7,7 @@ const Header: React.FC = () => {
     return (
         <div className='header_container'>
             <div className='logo'>
-                <i className="fa fa-qrcode"></i>
-                <a href="http://google.com">Logo_for_shop</a>
+                <img src={logo} alt="Logo" className="logo_img"></img>
             </div>
             <div className="dropdown">
                 <button className="dropbtn">Dropdown </button>
