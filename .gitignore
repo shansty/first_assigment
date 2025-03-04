@@ -1,0 +1,14 @@
+back/node_modules/
+front/node_modules/
+
+node_modules/
+
+.env.local
+.env.development
+.env.production
+
+dist/
+build/
+
+package-lock.json
+yarn.lock
