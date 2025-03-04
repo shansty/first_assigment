@@ -1,14 +1,21 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
+import cors from 'cors';
 import dotenv from "dotenv";
+import rootRouter from "./routers";
+import { connectDB } from "./mongo_db";
 
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
-});
+
+(async () => {
+  await connectDB();
+})();
+
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use('/', rootRouter)
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);

@@ -54,7 +54,7 @@
     color: black;  
     text-decoration: none; 
     font-weight: bold;
-    transition: all 1s ease-out;
+    transition: all 0.1s ease-out;
 }
 
 .category a:hover {

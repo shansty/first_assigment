@@ -22,12 +22,6 @@
     text-decoration: none; 
 }
 
-/* .dropdown {
-    float: left;
-    overflow: hidden;
-} */
-
-
 .dropdown .dropbtn {
     font-size: 18px;
     border: none;
@@ -51,7 +45,6 @@
     z-index: 1;
 }
 
-
 .dropdown-content a {
     float: none;
     color: black;
@@ -68,7 +61,6 @@
 .dropdown:hover .dropdown-content {
     display: block;
 }
-
 
 .footer_container {
     height: 5%;
