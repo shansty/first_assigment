@@ -25,7 +25,6 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ onResultsChange, onTogg
         });
     };
 
-
     const setAllCategories = async () => {
         const db_catedories = await getCategoriesNames();
         setCategories([default_category, ...db_catedories])
@@ -51,4 +50,3 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ onResultsChange, onTogg
 }
 
 export default NavigationMenu;
-
