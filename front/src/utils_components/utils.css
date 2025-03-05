@@ -12,28 +12,40 @@
 
 .logo {
     padding: 10px;
-    font-size: 18x;
-    text-transform: uppercase;
-    font-weight: 400;
 }
 
-.logo a {
-    color: #ffffff;
-    text-decoration: none; 
+.logo_img{
+    display: flex;
+    width: 45px;
+    align-items: center;
 }
 
 .dropdown .dropbtn {
-    font-size: 18px;
+    height: 45px;
+    width: auto; 
+    display: flex;
+    align-items: center;
     border: none;
-    outline: none;
-    color: white;
-    padding: 12px 40px;
     background-color: inherit;
-    font-family: inherit;
+    margin-right: 10%;
 }
 
-.dropdown:hover .dropbtn {
-    background-color: rgb(23, 9, 100);
+.profile_img{
+    cursor: pointer;
+    display: block;
+    width: 35px;
+}
+
+.profile_name {
+    cursor: pointer;
+    color: white;
+    margin-left: 3%;
+}
+
+@media only screen and (max-width: 400px) {
+    .profile_name {
+        display: none;
+    }
 }
 
 .dropdown-content {
@@ -56,6 +68,7 @@
 
 .dropdown-content a:hover {
     background-color: #ddd;
+    cursor: pointer;
 }
 
 .dropdown:hover .dropdown-content {
