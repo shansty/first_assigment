@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
 
+const { Schema, model } = mongoose;
+const categorySchema = new Schema({
+    id: Number,
+    name: String,
+},
+    { collection: "categories" });
 
-const categorySchema = new mongoose.Schema({
-    name: { type: String, required: true, trim: true },
-    createdAt: { type: Date, default: Date.now }
-});
 
-
-const Category = mongoose.model("Category", categorySchema);
+const Category = model("Category", categorySchema);
 
 export default Category;
