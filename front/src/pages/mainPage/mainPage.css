@@ -45,6 +45,12 @@
   margin-left: 10px;
 }
 
+.nav_menu_container {
+    font-size: 16px;
+    margin: 15px 0px 0px 10px;
+    color: rgb(0, 0, 0);
+}
+
 .category {
     padding: 10px;
 }
