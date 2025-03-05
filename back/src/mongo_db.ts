@@ -8,7 +8,7 @@ const MONGO_URI = process.env.URI;
 export async function connectDB() {
     try {
         if(!MONGO_URI) {
-            console.log(`Bad mongoDB URI`)
+            console.log(`Absent mongoDB URI`)
         } else {
             await mongoose.connect(MONGO_URI);
             console.log("✅ Connected to MongoDB");
