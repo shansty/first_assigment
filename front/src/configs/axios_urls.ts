@@ -1,0 +1,1 @@
+export const CATEGORY_URL = `${process.env.REACT_APP_AXIOS_HOST}/category`
