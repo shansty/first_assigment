@@ -1,8 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { getCategoriesNames } from '../../../axios';
 
 const NavigationMenu = () => {
-    const categories = ["Books", "Toys", "Food", "Beverages", "Electronics", "Fashion"]
+    const[categories, setCategories] = useState<String[]>([]);
+    useEffect(() => {
+        getCategoriesNames(setCategories);
+    }, [])
     return (
         <div className='nav_menu_container'>
             <h2>Categories: </h2>
