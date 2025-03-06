@@ -43,7 +43,7 @@ export const getSearchedProductNames = async (searchQuery: string, setContentDat
         const response = await axios.post(`${PRODUCT_SEARCH_URL}${format_query}`, { searchQuery },
             { headers: { 'Content-Type': 'application/json' } });
         const data = await response.data.products;
-        console.dir({ data })
+        console.dir({data})
         if (!data) {
             setContentData([])
         } else {

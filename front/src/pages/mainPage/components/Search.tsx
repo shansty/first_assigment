@@ -1,9 +1,12 @@
 import { ChangeEvent, useEffect, useState, useRef } from "react";
 import { getSearchedProductNames } from "../../../axios";
+import { Link } from "react-router-dom";
+import { TypeProduct } from "../../../types";
 import SearchBar from './Searchbar'
 
 const Search = () => {
-    const [contentData, setContentData] = useState<String[]>([]);
+
+    const [contentData, setContentData] = useState<TypeProduct[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const ref = useRef<HTMLInputElement | null>(null);
@@ -15,7 +18,9 @@ const Search = () => {
     }, [searchQuery]);
 
     const getProductList = async () => {
-        getSearchedProductNames(searchQuery, setContentData);
+        await getSearchedProductNames(searchQuery, setContentData);
+        console.dir({ contentData })
+        console.log("Degug")
     }
 
 
@@ -42,9 +47,9 @@ const Search = () => {
             <div className="searchData">
                 <ul>
                     {contentData.length > 0 ? (
-                        contentData.map((title, index) => (
+                        contentData.map((product, index) => (
                             <li key={index}>
-                                {title}
+                                <Link to={`/${product.id}`}><h3>{product.title}</h3></Link>
                             </li>
                         ))
                     ) : (

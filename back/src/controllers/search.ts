@@ -6,7 +6,7 @@ import { IProduct } from '../models/product';
 export const getSearchedProductTitles = async (req: Request, res: Response) => {
     try {
         const title: string = req.body.searchQuery;
-        let products: String[];
+        let products: IProduct[];
         console.dir({title})
         if(title) {
             products = await getProductTitles(title);
@@ -25,8 +25,7 @@ export const getSearchedProductTitles = async (req: Request, res: Response) => {
 }
 
 
-const getProductTitles = async(title: string) : Promise<String[]>  => {
+const getProductTitles = async(title: string) : Promise<IProduct[]>   => {
     const products = await Product.find({ title: title })
-    const result = products.map(product => product.title)
-    return result;
+    return products;
 }

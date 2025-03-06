@@ -20,6 +20,7 @@ const App: React.FC = () => {
           <Route path='/product_id/:product_id' element={<ProductPage />}/>
           <Route path='/profile' element={<ProfilePage />}/>
           <Route path='/404' element={<NotFoundPage />}/>
+          <Route path='/:category/:product_id' element={<ProductPage />}/>
           </Routes>
       </BrowserRouter>
       <Footer />
