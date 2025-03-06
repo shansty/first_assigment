@@ -20,10 +20,11 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ onResultsChange, onTogg
     const handleToggle = () => {
         setIsOpen(prev => {
             const newState = !prev;
-            onToggle(newState);
+            onToggle(newState);  
             return newState;
         });
     };
+
 
     const setAllCategories = async () => {
         const db_catedories = await getCategoriesNames();
@@ -44,10 +45,10 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ onResultsChange, onTogg
                         </Link>
                     </div>
                 ))}
-
             </div>
         </div>
     );
 }
 
 export default NavigationMenu;
+
