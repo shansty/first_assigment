@@ -8,7 +8,7 @@ export interface IProduct {
     title: string;
     price: number;
     description: string;
-    category_id: number;name: string;
+    category_id: number;
   }
 
 const productSchema = new Schema<IProduct>({
