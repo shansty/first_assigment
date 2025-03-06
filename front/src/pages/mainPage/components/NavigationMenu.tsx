@@ -4,19 +4,18 @@ import { useState, useEffect } from 'react';
 import { getCategoriesNames } from '../../../axios';
 
 const NavigationMenu = () => {
-    const[categories, setCategories] = useState<String[]>([]);
+    const default_category = "all categories"
+    const [categories, setCategories] = useState<String[]>([default_category]);
+    
     useEffect(() => {
-        const fetchCategories = async () => {
-            const result_categories = await getCategoriesNames();
-            if(!result_categories) {
-                setCategories(["all products"])
-            }
-            result_categories?.push("all products")
-            setCategories(result_categories as string[])
-        };
-
-        fetchCategories();
+        setAllCategories();
     }, [])
+
+    const setAllCategories = async () => {
+        const db_catedories = await getCategoriesNames();
+        setCategories([default_category, ...db_catedories])
+    }
+
     return (
         <div className='nav_menu_container'>
             <h2>Categories: </h2>

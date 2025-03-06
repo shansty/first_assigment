@@ -10,9 +10,9 @@ export const getProductsByCategory = async (req: Request, res: Response) => {
         const category_id = await getCategoryId(category);
         let products;
         if(category_id) {
-            products = getProductsByCategoryId(category_id)
+            products = await getProductsByCategoryId(category_id)
         } else {
-            products = getAllProducts()
+            products = await getAllProducts()
         }
         res.status(200).json({ products: products })
     } catch (error) {
