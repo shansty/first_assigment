@@ -63,7 +63,7 @@
 }
 
 .nav_menu.open {
-  height: 100vh;
+  height: 100%;
   background-color: rgba(12, 1, 45, 0.2);
 }
 
