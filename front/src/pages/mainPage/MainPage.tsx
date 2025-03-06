@@ -8,7 +8,7 @@ const MainPage = () => {
 
     return (
         <div className='main_page_container'>
-            <NavigationMenu onToggle={setIsMenuOpen} />
+            <NavigationMenu />
             <div className={isMenuOpen ? "main_content expanded" : "main_content collapsed"}>
                 <MainContent />
             </div>
