@@ -21,9 +21,9 @@
 
 .main_content {
     margin-left: auto;
+    flex-grow: 1;
     background-color: #ffffff;
     height: 100%;
-    margin-left: calc(100% - 84%);
 }
 
 .menu_title {
@@ -72,8 +72,7 @@
     background-color: inherit;
   }
 
-
-@media only screen and (max-width: 930px) {
+  @media only screen and (max-width: 930px) {
     .main_content.expanded {
         margin-left: 18%;
     }
