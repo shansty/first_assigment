@@ -164,4 +164,6 @@ li {
     color: #042547; 
 }
 
-
+a {
+    text-decoration: none; 
+}

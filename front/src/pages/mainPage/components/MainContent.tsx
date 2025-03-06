@@ -12,6 +12,7 @@ const MainContent = () => {
 
     useEffect(() => {
         getProductsByCategory(category, setProducts);
+        console.dir({products})
     }, [category])
 
     return (
