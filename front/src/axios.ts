@@ -38,22 +38,19 @@ export const getProductsByCategory = async (category: string | undefined, setPro
     }
 }
 
-export const getSearchedProductNames = async (query: string, setResults: React.Dispatch<React.SetStateAction<TypeProduct[]>>, setLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
-    if (!query) {
-        setResults([]);
-        setLoading(false);
-        return;
-    }
-    setLoading(true);
-    try {
-        const format_query = formatQuery(query);
-        const response = await axios.get(`${PRODUCT_SEARCH_URL}${format_query}`);
-        const axios_result: TypeProduct[] = response.data.products;
-        setResults(axios_result.length ? axios_result : [{ title: "Not found" }]);
+export const getSearchedProductNames = async (searchQuery: string, setContentData: React.Dispatch<React.SetStateAction<String[]>>) => {
+     try {
+        const response = await axios.post(`${PRODUCT_SEARCH_URL}${format_query}`, { searchQuery },
+            { headers: { 'Content-Type': 'application/json' } });
+        const data = await response.data.products;
+        console.dir({ data })
+        if (!data) {
+            setContentData([])
+        } else {
+            setContentData(data);
+        }
     } catch (error) {
-        console.error('Error fetching data:', error);
-        setResults([{ title: "Not found" }]);
-    } finally {
-        setLoading(false);
+        console.error(error);
     }
+   
 };
