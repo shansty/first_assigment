@@ -23,6 +23,7 @@ export const getCategoriesNames = async (): Promise<string[]> => {
 
 export const getProductsByCategory = async (category: string | undefined, setProducts: React.Dispatch<React.SetStateAction<TypeProduct[]>>) => {
     try {
+        console.dir({category})
         const response = await axios.get(`${PRODUCT_URL}/${category}`,
             { headers: { 'Content-Type': 'application/json' } });
 

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Product from '../models/product';
+import { getProductsByQuery, getCategoriesByQuery } from './utils';
 import Category from '../models/category';
 import { IProduct } from '../models/product';
 
@@ -23,22 +23,20 @@ export const getProductsByCategory = async (req: Request, res: Response) => {
 
 
 const getCategoryId = async (category: string): Promise<number | null> => {
-    let categoryMD = await Category.findOne({ name: category });
+    let categoryMD = await getCategoriesByQuery({name: category})
     let category_id: number;
-    if (categoryMD) {
-        category_id = categoryMD.id;
+    if (categoryMD[0]) {
+        category_id = categoryMD[0].id;
         return category_id;
     } else {
         return null;
     }
 };
 
-const getAllProducts = async (): Promise<IProduct[]>   => {
-    const products = await Product.find({});
-    return products;
-} 
+const getAllProducts = async (): Promise<IProduct[]> => {
+    return getProductsByQuery({});
+}
 
-const getProductsByCategoryId = async(category_id: number) : Promise<IProduct[]>  => {
-    const products = await Product.find({ category_id: category_id })
-    return products;
+const getProductsByCategoryId = async (category_id: number): Promise<IProduct[]> => {
+    return getProductsByQuery({category_id: category_id});
 }

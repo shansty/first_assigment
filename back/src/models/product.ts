@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const { Schema, model, Document } = mongoose;
+const { Schema, model } = mongoose;
 
 
 export interface IProduct {

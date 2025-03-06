@@ -1,13 +1,22 @@
 import mongoose from "mongoose";
 
 const { Schema, model } = mongoose;
-const categorySchema = new Schema({
+
+export interface ICategory {
+    id: number;
+    name: string;
+  }
+
+
+const categorySchema = new Schema<ICategory>({
     id: Number,
     name: String,
 },
     { collection: "categories" });
 
 
-const Category = model("Category", categorySchema);
+const Category = model<ICategory>("Category", categorySchema);
 
 export default Category;
+
+
