@@ -1,7 +1,17 @@
 import mongoose from "mongoose";
+const { Schema, model, Document } = mongoose;
 
-const { Schema, model } = mongoose;
-const productSchema = new Schema({
+
+export interface IProduct {
+    id: number;
+    image: string;
+    title: string;
+    price: number;
+    description: string;
+    category_id: number;name: string;
+  }
+
+const productSchema = new Schema<IProduct>({
     id: Number,
     image: String,
     title: String,
@@ -14,6 +24,6 @@ const productSchema = new Schema({
     });
 
 
-const Product = model("Product", productSchema);
+const Product = model<IProduct>("Product", productSchema);
 
 export default Product;
