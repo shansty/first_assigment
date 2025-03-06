@@ -23,6 +23,7 @@
     flex-grow: 1;
     background-color: #ffffff;
     height: 100%;
+    margin-left: calc(100% - 84%);
 }
 
 .menu_title {
