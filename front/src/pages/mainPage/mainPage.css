@@ -204,6 +204,7 @@
     width: 100%;
     max-width: 600px; 
     border-radius: 8px;
+    
 }
 
 .search_field {
@@ -249,11 +250,11 @@
 
 .searchData {
     margin-top: 1px;
-    border: 1px solid black;
-    border-radius: 4px;
     display: flex;
     justify-content: flex-start;
     width: 95%;
+    border: 1px solid black;
+    border-radius: 4px;
 }
 
 .search_field{
@@ -284,4 +285,15 @@ a {
 
 .product_link:hover {
     color: #042547;
+}
+.product-link {
+    text-decoration: none;  
+    font-size: 14px;
+    padding: auto;
+    color: #333; 
+    border-radius: 6px;
+}
+
+.product-link:hover {
+    color: #042547; 
 }

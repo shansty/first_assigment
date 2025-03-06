@@ -5,14 +5,17 @@ interface SearchItemProps {
     searchHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
     getProductList: () => void;
     ref: RefObject<HTMLInputElement | null>;
-    isFocus: () => void;
+    isRequestSended: () => void;
 }
 
 const SearchBar = (props: SearchItemProps) => {
     
     const handleButtonClick = () => {
         props.getProductList();  
-        props.isFocus();
+        props.isRequestSended();
+        if(props.ref) {
+            props.ref?.current?.focus();
+        }
     };
 
     return (
@@ -24,7 +27,6 @@ const SearchBar = (props: SearchItemProps) => {
                 placeholder="Search..."
                 value={props.value}
                 onChange={props.searchHandler}
-                onClick={props.isFocus}  
             />
             <button onClick={handleButtonClick}>🔍</button>
         </div>
