@@ -3,6 +3,7 @@ import NavigationMenu from './components/NavigationMenu';
 import MainContent from './components/MainContent';
 import ProductSearch from '../../utils_components/product_search/ProductSearch';
 import { TypeProduct } from '../../types';
+import Search from './components/Search';
 import './mainPage.css'
 
 const MainPage: React.FC = () => {
