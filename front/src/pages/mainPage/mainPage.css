@@ -121,20 +121,33 @@
 
 .search_holder{
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
     margin: auto;
-    width: 30%;
+    width: 100%;
     flex-direction: column;
     border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 1);
 }
 
 .searchData {
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 1);
-    width: 50%;
+    margin-top: 1px;
+    border: 1px solid black;
+    border-radius: 4px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    width: 95%;
 }
+
+.search_field{
+    display: inline-block;
+    width: 100%;
+}
+
+.search_bar{
+    width: 95%;
+    border-radius: 4px;
+}
+
+li {
+    list-style-type: none;
+  }
 

@@ -44,7 +44,7 @@ const Search = () => {
                 isFocus={handleFocus}
             />
 
-            <div className="searchData">
+            <div className={isFocused ? "searchData" : ""}>
                 <ul>
                     {contentData.length > 0 ? (
                         contentData.map((product, index) => (
