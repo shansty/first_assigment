@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-const { Schema, model } = mongoose;
-
+const { Schema, model, Document } = mongoose;
 
 export interface IProduct {
     id: number;
@@ -9,6 +8,7 @@ export interface IProduct {
     price: number;
     description: string;
     category_id: number;
+	name: string;
   }
 
 const productSchema = new Schema<IProduct>({

@@ -10,9 +10,9 @@ export const getProductsByCategory = async (req: Request, res: Response) => {
         const category_id = await getCategoryId(category);
         let products;
         if(category_id) {
-            products = await getProductsByCategoryId(category_id)
+            products = getProductsByCategoryId(category_id)
         } else {
-            products = await getAllProducts()
+            products = getAllProducts()
         }
         res.status(200).json({ products: products })
     } catch (error) {
@@ -20,7 +20,6 @@ export const getProductsByCategory = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Error getting list of products by category" })
     }
 }
-
 
 export const getSearchedProductTitles = async (req: Request, res: Response) => {
     try {
@@ -46,9 +45,6 @@ const getProductTitles = async(title: string) : Promise<IProduct[]>   => {
 
 const getCategoryId = async (category: string): Promise<number | null> => {
     let categoryMD = await getCategoriesByQuery({name: category})
-    let category_id: number;
-    if (categoryMD[0]) {
-        category_id = categoryMD[0].id;
         return category_id;
     } else {
         return null;
