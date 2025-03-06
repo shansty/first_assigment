@@ -34,6 +34,7 @@ export const getProductsByCategory = async (category: string | undefined, setPro
         } else {
             window.alert(`Error: ${err}`);
         }
+        return [];
     }
 }
 
