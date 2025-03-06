@@ -130,12 +130,12 @@
 }
 
 .searchData {
+    border: 1px solid black;
+    border-radius: 4px;
     margin-top: 1px;
     display: flex;
     justify-content: flex-start;
     width: 95%;
-    border: 1px solid black;
-    border-radius: 4px;
 }
 
 .search_field{

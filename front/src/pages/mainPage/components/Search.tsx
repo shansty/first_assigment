@@ -50,10 +50,10 @@ const Search = () => {
 
             <div className={isRequestSended ? "searchData" : ""}>
                 <ul>
-                    {contentData.length > 0 ? (
+                    {contentData.length > 0 ? isRequestSended && (
                         contentData.map((product, index) => (
                             <li key={index}>
-                                <Link className='' to={`/product_id/${product.id}`}><h3>{product.title}</h3></Link>
+                                <Link className='product-link' to={`/product_id/${product.id}`}><h3>{product.title}</h3></Link>
                             </li>
                         ))
                     ) : (
