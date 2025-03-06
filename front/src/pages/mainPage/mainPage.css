@@ -20,9 +20,10 @@
 }
 
 .main_content {
-    flex-grow: 1;
+    margin-left: auto;
     background-color: #ffffff;
     height: 100%;
+    margin-left: calc(100% - 84%);
 }
 
 .menu_title {
