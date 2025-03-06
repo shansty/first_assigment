@@ -36,3 +36,19 @@ export const getProductsByCategory = async (category: string | undefined, setPro
         }
     }
 }
+
+export const getSearchedProductNames = async (searchQuery: string, setContentData: React.Dispatch<React.SetStateAction<String[]>>) => {
+    try {
+        const response = await axios.post('http://localhost:3000/search', { searchQuery },
+            { headers: { 'Content-Type': 'application/json' } });
+        const data = await response.data.products;
+        console.dir({ data })
+        if (!data) {
+            setContentData([])
+        } else {
+            setContentData(data);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+};

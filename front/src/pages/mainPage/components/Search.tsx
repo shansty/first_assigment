@@ -1,52 +1,54 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState, useRef } from "react";
+import { getSearchedProductNames } from "../../../axios";
 import SearchBar from './Searchbar'
-import axios from "axios";
 
 const Search = () => {
     const [contentData, setContentData] = useState<String[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>("");
+    const [isFocused, setIsFocused] = useState<boolean>(false);
+    const ref = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
-        getSearchedProductNames();
-    }, []);
-
-    const getSearchedProductNames = async () => {
-        try {
-            const response = await axios.post('http://localhost:3000/search', { searchQuery },
-                { headers: { 'Content-Type': 'application/json' } });
-            const data = await response.data.products;
-            console.dir({ data })
-            if (!data) {
-                setContentData([])
-            } else {
-                setContentData(data);
-            }
-        } catch (error) {
-            console.error(error);
+        if (searchQuery) {
+            getProductList();
         }
-    };
+    }, [searchQuery]);
+
+    const getProductList = async () => {
+        getSearchedProductNames(searchQuery, setContentData);
+    }
+
 
     const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(e.target.value);
     };
 
+    const handleFocus = () => {
+        setIsFocused(!isFocused);
+    };
+
+
     return (
         <div className="search_holder">
 
             <SearchBar
+                ref={ref}
                 value={searchQuery}
                 searchHandler={searchHandler}
-                getSearchedProductNames={getSearchedProductNames}
+                getProductList={getProductList}
+                isFocus={handleFocus}
             />
 
             <div className="searchData">
                 <ul>
                     {contentData.length > 0 ? (
                         contentData.map((title, index) => (
-                            <li key={index}>{title}</li>
+                            <li key={index}>
+                                {title}
+                            </li>
                         ))
                     ) : (
-                        <li>No results found</li>
+                        isFocused && <li>No results found</li>
                     )}
                 </ul>
             </div>
