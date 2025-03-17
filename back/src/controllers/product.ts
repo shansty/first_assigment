@@ -19,7 +19,21 @@ export const getProductsByCategory = async (req: Request, res: Response) => {
         console.log(`Error ${error}`)
         res.status(500).json({ message: "Error getting list of products by category" })
     }
+
+
+export const getProductData = async (req: Request, res: Response) => {
+    try {
+        let product_id = +req.params.id;
+        console.log(product_id);
+        const product = await getProductsByProductId(product_id);
+        console.log(product)
+        res.status(200).json({product: product})
+		   } catch (error) {
+        console.log(`Error ${error}`)
+        res.status(500).json({ message: "Error getting list of products by category" })
+    }
 }
+
 
 export const getSearchedProductTitles = async (req: Request, res: Response) => {
     try {
@@ -32,16 +46,13 @@ export const getSearchedProductTitles = async (req: Request, res: Response) => {
             products = [];
             res.status(200).json({ products: products })
         }
-    } catch (error) {
-        console.log(`Error ${error}`)
-        res.status(500).json({ message: "Error getting list of products by category" })
-    }
+	}
 }
-
 
 const getProductTitles = async(title: string) : Promise<IProduct[]>   => {
     return getProductsByQuery({ title: title });
 }
+
 
 const getCategoryId = async (category: string): Promise<number | null> => {
     let categoryMD = await getCategoriesByQuery({name: category})
@@ -57,4 +68,9 @@ const getAllProducts = async (): Promise<IProduct[]> => {
 
 const getProductsByCategoryId = async (category_id: number): Promise<IProduct[]> => {
     return getProductsByQuery({category_id: category_id});
+}
+
+const getProductsByProductId = async(id: number) : Promise<IProduct[]>  => {
+    const products = await Product.find({ id: id })
+    return products;
 }
