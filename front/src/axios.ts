@@ -26,7 +26,7 @@ export const getProductsByCategory = async (category: string | undefined, setPro
         const response = await axios.get(`${PRODUCT_URL}/${category}`,
             { headers: { 'Content-Type': 'application/json' } });
 
-        const products = response.data.products;
+        const products = await response.data.products;
         setProducts(products);
     } catch (err: any) {
         if (err.response.data) {
@@ -54,14 +54,16 @@ export const getSearchedProductNames = async (searchQuery: string, setContentDat
     }
 };
 
-export const getProductData = async (product_id: string, setProduct: React.Dispatch<React.SetStateAction<TypeProduct | undefined>>) => {
-    const empty_data = { id: 0, image: "", title: "Unknown", price: 0, description: "No description available" };
+export const getProductData = async (product_id: string, setProduct: React.Dispatch<React.SetStateAction<TypeProduct>>) => {
     const id = +product_id;
     try {
         const response = await axios.get(`${PRODUCT_ID_URL}/${id}`,
             { headers: { 'Content-Type': 'application/json' } });
         const product: TypeProduct = await response.data.product;
+        const test = response.data
+        console.dir({test})
         setProduct(product)
+        console.dir({product})
     } catch (error) {
         console.error(error);
     }

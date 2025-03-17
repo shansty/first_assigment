@@ -16,7 +16,7 @@ const MainContent: React.FC<MainContentProps> = ({ category, searchResults }) =>
 
     useEffect(() => {
         getProductsByCategory(category, setProducts);
-        console.dir({products})
+        console.dir({products, message: "category_useEf"})
     }, [category])
 
     useEffect(() => {

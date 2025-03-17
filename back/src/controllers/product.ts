@@ -26,9 +26,8 @@ export const getProductData = async (req: Request, res: Response) => {
         let product_id = +req.params.id;
         console.log(product_id);
         const product = await getProductsByProductId(product_id);
-        console.log(product)
         res.status(200).json({product: product})
-		   } catch (error) {
+    } catch (error) {
         console.log(`Error ${error}`)
         res.status(500).json({ message: "Error getting list of products by category" })
     }

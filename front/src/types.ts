@@ -4,4 +4,6 @@ export type TypeProduct = {
     title?: string;
     price?: number;
     description?: string;
+    category_id?: number;
+    _id?: string;
 };
