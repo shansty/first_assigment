@@ -1,34 +1,31 @@
 import React, { RefObject } from "react";
 
 interface SearchItemProps {
-    value: string;
-    searchHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    getProductList: () => void;
-    ref: RefObject<HTMLInputElement | null>;
-    isRequestSended: () => void;
+    query: string;
+    setQuery: React.Dispatch<React.SetStateAction<string>>;
+    throttledFetch: () => void;
 }
 
+
 const SearchBar = (props: SearchItemProps) => {
-    
-    const handleButtonClick = () => {
-        props.getProductList();  
-        props.isRequestSended();
-        if(props.ref) {
-            props.ref?.current?.focus();
-        }
-    };
+
 
     return (
         <div className="search_field">
             <input
-                ref={props.ref}
-                className="search_bar"
-                type="search"
+                type="text"
                 placeholder="Search..."
-                value={props.value}
-                onChange={props.searchHandler}
+                value={props.query}
+                onChange={(e) => {
+                    props.setQuery(e.target.value)
+                }}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        props.throttledFetch();
+                    }
+                }}
             />
-            <button onClick={handleButtonClick}>🔍</button>
+            <button onClick={props.throttledFetch}>Search</button>
         </div>
     );
 };

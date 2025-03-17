@@ -2,6 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { TypeProduct } from '../../../types';
 import { getSearchedProductNames } from '../../../axios';
 import { useThrottle, useDebounce } from '../../../hooks';
+import { Link } from 'react-router-dom';
+import SearchBar from './Searchbar';
+
 
 const SearchComponent: React.FC = () => {
     const [query, setQuery] = useState<string>('');
@@ -22,30 +25,19 @@ const SearchComponent: React.FC = () => {
 
 
     return (
-        <div>
-            <input
-                type="text"
-                placeholder="Search..."
-                value={query}
-                onChange={(e) => {
-                    setQuery(e.target.value)
-                }}
-                onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                        throttledFetch();
-                    }
-                }}
-            />
-            {loading ? (
-                <p>Loading...</p>
-            ) : (
-                <ul>
-                    {results?.map((result) => (
-                        <li key={result.id}>{result.title}</li>
-                    ))}
-                </ul>
-            )}
-            <button onClick={throttledFetch}>Search</button>
+        <div className="search_holder">
+            <SearchBar throttledFetch={throttledFetch} query={query} setQuery={setQuery} />
+            <div className='search_data'>
+                {loading ? (
+                    <p>Loading...</p>
+                ) : (
+                    <ul>
+                        {results?.map((result) => (
+                            <li key={result.id}><Link to={`product_id/${result.id}`} className='product-link'><h3>{result.title}</h3></Link></li>
+                        ))}
+                    </ul>
+                )}
+            </div>
         </div>
     );
 };
