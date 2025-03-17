@@ -8,7 +8,7 @@ const NavigationMenu = ({ onToggle }: { onToggle: (isOpen: boolean) => void }) =
     const [isOpen, setIsOpen] = useState(true)
 
     useEffect(() => {
-        getCategoriesNames(setCategories);
+        // getCategoriesNames(setCategories);
     }, [])
 
     const handleToggle = () => {
