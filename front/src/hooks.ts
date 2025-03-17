@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRef } from "react";
 
-
-export function useThrottle<T extends any[]>(callback: (...args: T) => void, delay: number = 3000) {
+export function useThrottle<T extends any[]>(callback: (...args: T) => void, delay: number = 2000) {
     const isWaiting = useRef(false);
 
     return (...args: T) => {
