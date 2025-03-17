@@ -1,68 +1,63 @@
-import { ChangeEvent, useEffect, useState, useRef } from "react";
-import { getSearchedProductNames } from "../../../axios";
-import { Link } from "react-router-dom";
-import { TypeProduct } from "../../../types";
-import SearchBar from './Searchbar'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { TypeProduct } from '../../../types';
+import { getSearchedProductNames } from '../../../axios';
 
-const Search = () => {
+const SearchComponent: React.FC = () => {
+    const [query, setQuery] = useState<string>('');
+    const [results, setResults] = useState<TypeProduct[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
 
-    const [contentData, setContentData] = useState<TypeProduct[]>([]);
-    const [searchQuery, setSearchQuery] = useState<string>("");
-    const [isRequestSended, setIsRequestSended] = useState<boolean>(false);
-    const ref = useRef<HTMLInputElement | null>(null);
+    const debounceValue = useDebounce(query, 2000);
 
-    useEffect(() => {
-        if (searchQuery) {
-            getProductList();
-        }
-        if(!searchQuery) {
-            setContentData([])
-            setIsRequestSended(false)
-        }
-    }, [searchQuery]);
+    function useDebounce(cb: any, delay: number) {
+        const [debounceValue, setDebounceValue] = useState(cb);
+        useEffect(() => {
+            const handler = setTimeout(() => {
+                setDebounceValue(cb);
+            }, delay);
 
-    const getProductList = async () => {
-        await getSearchedProductNames(searchQuery, setContentData);
-        console.dir({ contentData })
-        console.log("Degug")
+            return () => {
+                clearTimeout(handler);
+            };
+        }, [cb, delay]);
+        return debounceValue;
     }
 
-    const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setSearchQuery(e.target.value);
-    };
 
-    const handleIsRequestSended= () => {
-        setIsRequestSended(!isRequestSended);
-        console.dir({isRequestSended})
+    useEffect(() => {
+        console.log("Debounced:", query);
+        fetchData();
+    }, [debounceValue]);
+
+
+    const fetchData = async () => {
+        getSearchedProductNames(query, setResults, setLoading)
     };
 
 
     return (
-        <div className="search_holder">
-
-            <SearchBar
-                ref={ref}
-                value={searchQuery}
-                searchHandler={searchHandler}
-                getProductList={getProductList}
-                isRequestSended={handleIsRequestSended}
+        <div>
+            <input
+                type="text"
+                placeholder="Search..."
+                value={query}
+                onChange={(e) => {
+                    setQuery(e.target.value)
+                }}
             />
-
-            <div className={isRequestSended ? "searchData" : ""}>
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
                 <ul>
-                    {contentData.length > 0 ? isRequestSended && (
-                        contentData.map((product, index) => (
-                            <li key={index}>
-                                <Link className='product-link' to={`/product_id/${product.id}`}><h3>{product.title}</h3></Link>
-                            </li>
-                        ))
-                    ) : (
-                         isRequestSended && <li>No results found</li>
-                    )}
+                    {results?.map((result) => (
+                        <li key={result.id}>{result.title}</li>
+                    ))}
                 </ul>
-            </div>
+            )}
+            <button>Search</button>
         </div>
     );
 };
 
-export default Search;
+export default SearchComponent;

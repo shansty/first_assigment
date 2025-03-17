@@ -5,9 +5,8 @@ import { IProduct } from '../models/product';
 
 export const getSearchedProductTitles = async (req: Request, res: Response) => {
     try {
-        const title: string = req.body.searchQuery;
+        const title: string = req.params.searchQuery;
         let products: IProduct[];
-        console.dir({title})
         if(title) {
             products = await getProductTitles(title);
             console.dir({products})
