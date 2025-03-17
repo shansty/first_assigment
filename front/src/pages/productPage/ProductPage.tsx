@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getProductData } from '../../axios';
 import { TypeProduct } from '../../types';
+import { Helmet } from 'react-helmet-async';
 import NavigationMenu from '../../utils_components/NavigationMenu';
 import './productPage.css'
 
@@ -16,8 +17,13 @@ const ProductPage = () => {
     }, [product_id])
 
 
+
     return (
         <div className='product_page'>
+            <Helmet>
+                <title>{product.title ? `${product.title}` : 'Product Page'}</title>
+                <meta name="description" content={product.description || 'View product details'} />
+            </Helmet>
             <div className='nav_menu'>
                 <NavigationMenu />
             </div>
