@@ -13,6 +13,7 @@ const App: React.FC = () => {
       <BrowserRouter>
           <Routes>
           <Route path='/' element={<MainPage />}/>
+          <Route path='/:category' element={<MainPage />}/>
           </Routes>
       </BrowserRouter>
       <Footer />

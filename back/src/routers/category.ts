@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { getCaterories } from "../controllers/category";
+import { getCategories } from "../controllers/category";
 
 const categoryRoutes:Router = Router();
 
-categoryRoutes.get('/',  getCaterories)
+categoryRoutes.get('/',  getCategories)
 
 export default categoryRoutes;

@@ -27,7 +27,7 @@ const NavigationMenu = ({ onToggle }: { onToggle: (isOpen: boolean) => void }) =
             {isOpen && <h2 className='menu_title'>Categories: </h2>}
             {isOpen && categories.map(category => (
                 <div className="category">
-                    <Link to={`/?category=${category}`}><h3>{category}</h3></Link>
+                    <Link to={`/${category}`}><h3>{category}</h3></Link>
                 </div>
             ))}
         </div>
