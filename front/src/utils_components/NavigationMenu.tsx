@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getCategoriesNames } from '../../../axios';
+import { getCategoriesNames } from '../axios';
 
 interface NavigationMenuProps {
     onResultsChange: (category: string) => void;

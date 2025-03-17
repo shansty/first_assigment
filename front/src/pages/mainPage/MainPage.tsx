@@ -1,5 +1,6 @@
+
 import React, { useState } from 'react';
-import NavigationMenu from './components/NavigationMenu';
+import NavigationMenu from '../../utils_components/NavigationMenu';
 import MainContent from './components/MainContent';
 import ProductSearch from '../../utils_components/product_search/ProductSearch';
 import { TypeProduct } from '../../types';
