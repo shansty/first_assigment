@@ -1,39 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useCallback } from 'react';
 import { TypeProduct } from '../../../types';
 import { getSearchedProductNames } from '../../../axios';
+import { useThrottle, useDebounce } from '../../../hooks';
 
 const SearchComponent: React.FC = () => {
     const [query, setQuery] = useState<string>('');
     const [results, setResults] = useState<TypeProduct[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
+    const fetchData = async () => {
+        getSearchedProductNames(query, setResults, setLoading)
+    };
+
     const debounceValue = useDebounce(query, 2000);
-
-    function useDebounce(cb: any, delay: number) {
-        const [debounceValue, setDebounceValue] = useState(cb);
-        useEffect(() => {
-            const handler = setTimeout(() => {
-                setDebounceValue(cb);
-            }, delay);
-
-            return () => {
-                clearTimeout(handler);
-            };
-        }, [cb, delay]);
-        return debounceValue;
-    }
-
+    const throttledFetch = useThrottle(fetchData, 5000);
 
     useEffect(() => {
         console.log("Debounced:", query);
         fetchData();
     }, [debounceValue]);
-
-
-    const fetchData = async () => {
-        getSearchedProductNames(query, setResults, setLoading)
-    };
 
 
     return (
@@ -45,6 +30,11 @@ const SearchComponent: React.FC = () => {
                 onChange={(e) => {
                     setQuery(e.target.value)
                 }}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        throttledFetch();
+                    }
+                }}
             />
             {loading ? (
                 <p>Loading...</p>
@@ -55,7 +45,7 @@ const SearchComponent: React.FC = () => {
                     ))}
                 </ul>
             )}
-            <button>Search</button>
+            <button onClick={throttledFetch}>Search</button>
         </div>
     );
 };
