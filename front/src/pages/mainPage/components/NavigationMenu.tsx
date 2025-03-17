@@ -21,7 +21,7 @@ const NavigationMenu = () => {
             <h2>Categories: </h2>
             {categories.map(category => (
                 <div className="category">
-                    <Link to={`/?category=${category}`}><h3>{category}</h3></Link>
+                   <Link to={`/${category}`}><h3>{category}</h3></Link>
                 </div>
             ))}
         </div>
