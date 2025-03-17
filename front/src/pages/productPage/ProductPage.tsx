@@ -7,7 +7,6 @@ import './productPage.css'
 
 
 const ProductPage = () => {
-    // const empty_data = { image: "", title: "Unknown", price: 0, description: "No description available" };
 
     const { product_id } = useParams()
     const [product, setProduct] = useState<TypeProduct>({});
