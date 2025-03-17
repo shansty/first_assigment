@@ -1,19 +1,21 @@
 import React from 'react';
-import { Route, BrowserRouter, Routes} from 'react-router-dom';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import MainPage from './pages/mainPage/MainPage';
 import Header from './utils_components/Header';
 import Footer from './utils_components/Footer';
 import ProductPage from './pages/productPage/ProductPage';
 import NotFoundPage from './pages/notFoundPage/NotFoundPage';
 import ProfilePage from './pages/profilePage/ProfilePage';
+import { HelmetProvider } from 'react-helmet-async';
 import './App.css';
 
 const App: React.FC = () => {
 
   return (
-    <div className='app'>
-      <Header />
-      <BrowserRouter>
+    <HelmetProvider>
+      <div className='app'>
+        <Header />
+        <BrowserRouter>
           <Routes>
           <Route path='/' element={<MainPage />}/>
           <Route path='/:category' element={<MainPage />}/>
@@ -22,9 +24,10 @@ const App: React.FC = () => {
           <Route path='/404' element={<NotFoundPage />}/>
           <Route path='/:category/:product_id' element={<ProductPage />}/>
           </Routes>
-      </BrowserRouter>
-      <Footer />
-    </div>
+        </BrowserRouter>
+        <Footer />
+      </div>
+    </HelmetProvider>
   );
 }
 
