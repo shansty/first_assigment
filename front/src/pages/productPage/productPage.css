@@ -1,8 +1,12 @@
+.product_page {
+    display: flex;
+}
+
 .product_page_container {
     display: flex;
     justify-content: center;  
     align-items: center; 
-    width: 100%;
+    width: 80%;
     height: 100vh;
     padding-top: 45px; 
     padding-bottom: 30px; 

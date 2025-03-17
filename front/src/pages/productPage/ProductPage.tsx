@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getProductData } from '../../axios';
 import { TypeProduct } from '../../types';
+import NavigationMenu from '../../utils_components/NavigationMenu';
 import './productPage.css'
 
 
@@ -17,14 +18,19 @@ const ProductPage = () => {
 
 
     return (
-        <div className='product_page_container'>
-            <div className="product_content">
-                <img src={product.image} className='card_product_image'/>
-                <p className='card_product_title'>{product.title}</p>
-                <p className='card_product_description'>{product.description}</p>
-                <p className='card_product_price'>{product.price}</p>
+        <div className='product_page'>
+            <div className='nav_menu'>
+                <NavigationMenu />
             </div>
-        </div >
+            <div className='product_page_container'>
+                <div className="product_content">
+                    <img src={product.image} className='card_product_image' />
+                    <p className='card_product_title'>{product.title}</p>
+                    <p className='card_product_description'>{product.description}</p>
+                    <p className='card_product_price'>{product.price}</p>
+                </div>
+            </div >
+        </div>
     );
 }
 export default ProductPage;
