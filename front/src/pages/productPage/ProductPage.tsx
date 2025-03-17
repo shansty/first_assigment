@@ -21,7 +21,7 @@ const ProductPage = () => {
     return (
         <div className='product_page'>
             <Helmet>
-                <title>{product.title ? `${product.title}` : 'Product Page'}</title>
+                <title>{`${product.title}` || 'Product Page'}</title>
                 <meta name="description" content={product.description || 'View product details'} />
             </Helmet>
             <div className='nav_menu'>
