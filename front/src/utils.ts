@@ -5,4 +5,3 @@ export const formatQuery = (query: string): string => {
         .toLowerCase()
         .replace(/^./, (char) => char.toUpperCase());                                        
 };
-
