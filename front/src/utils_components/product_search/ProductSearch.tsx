@@ -18,7 +18,6 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ category, onResultsChange
     const [loading, setLoading] = useState<boolean>(false);
     const debounceValue = useDebounce(query);
 
-
     const fetchData = async () => {
         getSearchedProductNames(query, setResults, setLoading)
     };
@@ -30,7 +29,7 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ category, onResultsChange
     useEffect(() => {
         onResultsChange(results);
     }, [results]);
-    
+
     return (
         <div className="search_holder">
             <SearchBar query={query} setQuery={setQuery} fetchData={fetchData}/>
