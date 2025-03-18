@@ -14,12 +14,11 @@ const ProductSearch: React.FC<ProductSearchProps > = ({ category, onResultsChang
     const [query, setQuery] = useState<string>('');
     const [results, setResults] = useState<TypeProduct[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
+    const debounceValue = useDebounce(query);
 
     const fetchData = async () => {
         getSearchedProductNames(query, setResults, setLoading)
     };
-
-    const debounceValue = useDebounce(query);
 
     useEffect(() => {
         fetchData();
