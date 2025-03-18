@@ -8,7 +8,6 @@ interface SearchDataProps {
 }
 
 const SearchData: React.FC<SearchDataProps> = (props: SearchDataProps) => {
-
     return (
         <div className='search_data'>
             {props.loading ? (

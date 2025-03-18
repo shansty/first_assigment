@@ -1,6 +1,5 @@
 import React from "react";
 import { useThrottle } from '../../hooks';
-import { useState } from "react";
 
 interface SearchItemProps {
     query: string;
@@ -17,6 +16,7 @@ const SearchBar: React.FC<SearchItemProps> = (props: SearchItemProps) => {
         throttledFetch()
         props.setQuery('')
     }
+
 
     return (
         <div className="search_field">
