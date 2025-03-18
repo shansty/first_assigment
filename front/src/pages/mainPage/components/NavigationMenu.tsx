@@ -18,6 +18,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ onResultsChange, onTogg
     }, [])
 
 
+
     const handleToggle = () => {
         setIsOpen(prev => {
             const newState = !prev;
