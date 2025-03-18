@@ -4,6 +4,7 @@ import { CATEGORY_URL, PRODUCT_URL } from "./configs/axios_urls";
 
 export const getCategoriesNames = async (): Promise<string[]> => {
     try {
+        console.log(CATEGORY_URL)
         const response = await axios.get((CATEGORY_URL),
             { headers: { 'Content-Type': 'application/json' } });
         const categories: string[] = response.data.categories;
