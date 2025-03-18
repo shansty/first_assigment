@@ -5,11 +5,12 @@ import { useDebounce } from '../../hooks';
 import SearchBar from './SearchBar';
 import SearchData from './SearchData';
 
-interface CategoryProps {
+interface ProductSearchProps  {
     category: string | undefined;
+    onResultsChange: (results: TypeProduct[]) => void;
 }
 
-const ProductSearch: React.FC<CategoryProps> = ({ category }) => {
+const ProductSearch: React.FC<ProductSearchProps > = ({ category, onResultsChange }) => {
     const [query, setQuery] = useState<string>('');
     const [results, setResults] = useState<TypeProduct[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
@@ -23,6 +24,10 @@ const ProductSearch: React.FC<CategoryProps> = ({ category }) => {
     useEffect(() => {
         fetchData();
     }, [debounceValue, category]);
+
+    useEffect(() => {
+        onResultsChange(results);
+    }, [results, onResultsChange]);
 
 
     return (
