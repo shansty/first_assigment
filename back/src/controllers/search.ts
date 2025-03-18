@@ -9,12 +9,9 @@ export const getSearchedProductTitles = async (req: Request, res: Response) => {
         let products: IProduct[];
         if(title) {
             products = await getProductTitles(title);
-            console.dir({products})
             res.status(200).json({ products: products });
-            return;
         } else {
             products = [];
-            console.dir({products})
             res.status(200).json({ products: products })
         }
     } catch (error) {

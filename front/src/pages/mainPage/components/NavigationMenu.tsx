@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getCategoriesNames } from '../../../axios';
 
-const NavigationMenu = () => {
+const NavigationMenu: React.FC = () => {
     const default_category = "all categories"
     const [categories, setCategories] = useState<String[]>([default_category]);
     
@@ -21,7 +21,7 @@ const NavigationMenu = () => {
             <h2>Categories: </h2>
             {categories.map((category, index) => (
                 <div className="category" key={index}>
-                    <Link to={`/${category}`}><h3>{category}</h3></Link>
+                    <Link to={(category == default_category ? `/` : `/${category}`)}><h3>{category}</h3></Link>
                 </div>
             ))}
         </div>

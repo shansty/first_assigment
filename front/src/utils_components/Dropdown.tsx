@@ -1,7 +1,7 @@
 import React from 'react';
 import profile from '../assets/user_p.png';
 
-function HeaderDropdown() {
+const HeaderDropdown: React.FC = () => {
     return (
         <div className="dropdown">
             <button className="dropbtn">

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { TypeProduct } from "./types";
-import { CATEGORY_URL, PRODUCT_URL } from "./configs/axios_urls";
+import { CATEGORY_URL, PRODUCT_URL, SEARCH_URL } from "./configs/axios_urls";
 
 export const getCategoriesNames = async (): Promise<string[]> => {
     try {
@@ -45,7 +45,7 @@ export const getSearchedProductNames = async (query: string, setResults: React.D
     }
     setLoading(true);
     try {
-        const response = await axios.get(`http://localhost:3000/search/${query}`);
+        const response = await axios.get(`${SEARCH_URL}/${query}`);
         const axios_result: TypeProduct[] = response.data.products;
         setResults(axios_result.length ? axios_result : [{ title: "Not found" }]);
     } catch (error) {
