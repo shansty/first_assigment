@@ -10,7 +10,6 @@ const MainPage: React.FC = () => {
     const [category, setCategory] = useState<string>();
     const [isMenuOpen, setIsMenuOpen] = useState(true);
 
-
     const handleResultsUpdate = (newResults: TypeProduct[]) => {
         setSearchResults(newResults);
     };

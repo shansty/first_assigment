@@ -17,7 +17,6 @@ const SearchBar: React.FC<SearchItemProps> = (props: SearchItemProps) => {
         props.setQuery('')
     }
 
-
     return (
         <div className="search_field">
             <input

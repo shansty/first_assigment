@@ -10,7 +10,6 @@ interface ProductSearchProps  {
     onResultsChange: (results: TypeProduct[]) => void;
 }
 
-
 const ProductSearch: React.FC<ProductSearchProps> = ({ category, onResultsChange }) => {
 
     const [query, setQuery] = useState<string>('');
