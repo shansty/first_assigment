@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { getProductsByCategory } from "../controllers/product";
+import { getProductsByCategory, getSearchedProductTitles } from "../controllers/product";
 
 const productRoutes:Router = Router();
 
 productRoutes.get('/:category',  getProductsByCategory)
+productRoutes.get('/',  getSearchedProductTitles)
 
 export default productRoutes;
