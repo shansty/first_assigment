@@ -41,8 +41,7 @@ export const getSearchedProductTitles = async (req: Request, res: Response) => {
 
 
 const getProductTitles = async(title: string) : Promise<IProduct[]>   => {
-    const products = await Product.find({ title: title })
-    return products;
+    return getProductsByQuery({ title: title });
 }
 
 const getCategoryId = async (category: string): Promise<number | null> => {

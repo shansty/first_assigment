@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import NavigationMenu from './components/NavigationMenu';
 import MainContent from './components/MainContent';
 import ProductSearch from '../../utils_components/product_search/ProductSearch';
-import { useState } from 'react';
 import { TypeProduct } from '../../types';
 import './mainPage.css'
 
 const MainPage: React.FC = () => {
     const [searchResults, setSearchResults] = useState<TypeProduct[]>([]);
     const [category, setCategory] = useState<string>();
+    const [isMenuOpen, setIsMenuOpen] = useState(true);
+
 
     const handleResultsUpdate = (newResults: TypeProduct[]) => {
         setSearchResults(newResults);
@@ -21,11 +22,11 @@ const MainPage: React.FC = () => {
     return (
         <div className='main_page_container'>
             <div className='nav_menu'>
-                <NavigationMenu onResultsChange={handleCategoryUpdate} />
+                <NavigationMenu onResultsChange={handleCategoryUpdate} onToggle={setIsMenuOpen} />
             </div>
             <div className='main_content'>
                 <ProductSearch category={category} onResultsChange={handleResultsUpdate} />
-                <div >
+                <div className={isMenuOpen ? "main_content expanded" : "main_content collapsed"}>
                     <MainContent category={category} searchResults={searchResults} />
                 </div>
             </div>

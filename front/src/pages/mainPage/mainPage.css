@@ -19,9 +19,7 @@
     margin-left: 3%;
 }
 
-
 .main_content {
-    margin-left: auto;
     flex-grow: 1;
     background-color: #ffffff;
     height: 100%;
@@ -73,7 +71,8 @@
     background-color: inherit;
   }
 
-  @media only screen and (max-width: 930px) {
+
+@media only screen and (max-width: 930px) {
     .main_content.expanded {
         margin-left: 18%;
     }
@@ -136,6 +135,8 @@
         margin-left: 12%;
     }
 }
+
+
 .main_products_container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
