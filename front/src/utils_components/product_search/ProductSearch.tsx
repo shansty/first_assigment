@@ -10,7 +10,9 @@ interface ProductSearchProps  {
     onResultsChange: (results: TypeProduct[]) => void;
 }
 
+
 const ProductSearch: React.FC<ProductSearchProps> = ({ category, onResultsChange }) => {
+
     const [query, setQuery] = useState<string>('');
     const [results, setResults] = useState<TypeProduct[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
@@ -28,7 +30,7 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ category, onResultsChange
     useEffect(() => {
         onResultsChange(results);
     }, [results]);
-
+    
     return (
         <div className="search_holder">
             <SearchBar query={query} setQuery={setQuery} fetchData={fetchData}/>
