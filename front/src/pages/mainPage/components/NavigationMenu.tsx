@@ -3,10 +3,14 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getCategoriesNames } from '../../../axios';
 
-const NavigationMenu: React.FC = () => {
+interface NavigationMenuProps {
+    onResultsChange: (category: string) => void;
+}
+
+const NavigationMenu: React.FC<NavigationMenuProps> = ({ onResultsChange }) => {
     const default_category = "all categories"
-    const [categories, setCategories] = useState<String[]>([default_category]);
-    
+    const [categories, setCategories] = useState<string[]>([default_category]);
+
     useEffect(() => {
         setAllCategories();
     }, [])
@@ -21,9 +25,12 @@ const NavigationMenu: React.FC = () => {
             <h2>Categories: </h2>
             {categories.map((category, index) => (
                 <div className="category" key={index}>
-                    <Link to={(category == default_category ? `/` : `/${category}`)}><h3>{category}</h3></Link>
+                    <Link to={category === default_category ? `/` : `/${category}`}>
+                        <h3 onClick={() => onResultsChange(category)}>{category}</h3>
+                    </Link>
                 </div>
             ))}
+
         </div>
     );
 }

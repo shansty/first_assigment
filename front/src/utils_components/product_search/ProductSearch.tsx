@@ -10,7 +10,7 @@ interface ProductSearchProps  {
     onResultsChange: (results: TypeProduct[]) => void;
 }
 
-const ProductSearch: React.FC<ProductSearchProps > = ({ category, onResultsChange }) => {
+const ProductSearch: React.FC<ProductSearchProps> = ({ category, onResultsChange }) => {
     const [query, setQuery] = useState<string>('');
     const [results, setResults] = useState<TypeProduct[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
@@ -26,7 +26,7 @@ const ProductSearch: React.FC<ProductSearchProps > = ({ category, onResultsChang
 
     useEffect(() => {
         onResultsChange(results);
-    }, [results, onResultsChange]);
+    }, [results]);
 
 
     return (

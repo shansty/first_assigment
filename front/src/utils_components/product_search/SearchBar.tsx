@@ -1,5 +1,6 @@
 import React from "react";
 import { useThrottle } from '../../hooks';
+import { useState } from "react";
 
 interface SearchItemProps {
     query: string;
@@ -12,6 +13,11 @@ const SearchBar: React.FC<SearchItemProps> = (props: SearchItemProps) => {
 
     const throttledFetch = useThrottle(props.fetchData);
 
+    const cleanSearchQuery = () => {
+        throttledFetch()
+        props.setQuery('')
+    }
+
     return (
         <div className="search_field">
             <input
@@ -23,11 +29,13 @@ const SearchBar: React.FC<SearchItemProps> = (props: SearchItemProps) => {
                 }}
                 onKeyDown={(e) => {
                     if (e.key === "Enter") {
-                        throttledFetch();
+                        cleanSearchQuery();
                     }
                 }}
             />
-            <button onClick={throttledFetch}>Search</button>
+            <button onClick={() => {
+                cleanSearchQuery();
+            }}>Search</button>
         </div>
     );
 };
