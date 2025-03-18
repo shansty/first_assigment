@@ -7,7 +7,8 @@ interface SearchDataProps {
     results: TypeProduct[];
 }
 
-const SearchData: React.FC<SearchDataProps>  = (props: SearchDataProps) => {
+const SearchData: React.FC<SearchDataProps> = (props: SearchDataProps) => {
+
     return (
         <div className='search_data'>
             {props.loading ? (
@@ -16,7 +17,7 @@ const SearchData: React.FC<SearchDataProps>  = (props: SearchDataProps) => {
                 <ul>
                     {props.results?.map((result) => (
                         <li key={result.id}>
-                            <Link to={`/product_id/${result.id}`} className='product_link'>
+                            <Link to={result.id ? `/product_id/${result.id}` : '/404'} className='product_link'>
                                 <h3>{result.title}</h3>
                             </Link>
                         </li>
