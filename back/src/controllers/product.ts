@@ -22,6 +22,29 @@ export const getProductsByCategory = async (req: Request, res: Response) => {
 }
 
 
+export const getSearchedProductTitles = async (req: Request, res: Response) => {
+    try {
+        const title = req.query.search as string;
+        let products: IProduct[];
+        if(title) {
+            products = await getProductTitles(title);
+            res.status(200).json({ products: products });
+        } else {
+            products = [];
+            res.status(200).json({ products: products })
+        }
+    } catch (error) {
+        console.log(`Error ${error}`)
+        res.status(500).json({ message: "Error getting list of products by category" })
+    }
+}
+
+
+const getProductTitles = async(title: string) : Promise<IProduct[]>   => {
+    const products = await Product.find({ title: title })
+    return products;
+}
+
 const getCategoryId = async (category: string): Promise<number | null> => {
     let categoryMD = await getCategoriesByQuery({name: category})
     let category_id: number;

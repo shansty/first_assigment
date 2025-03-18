@@ -3,36 +3,36 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getCategoriesNames } from '../../../axios';
 
-const NavigationMenu = ({ onToggle }: { onToggle: (isOpen: boolean) => void }) => {
-    const [categories, setCategories] = useState<String[]>([]);
-    const [isOpen, setIsOpen] = useState(true)
+interface NavigationMenuProps {
+    onResultsChange: (category: string) => void;
+}
+
+const NavigationMenu: React.FC<NavigationMenuProps> = ({ onResultsChange }) => {
+    const default_category = "all categories"
+    const [categories, setCategories] = useState<string[]>([default_category]);
 
     useEffect(() => {
-         // getCategoriesNames(setCategories);
+        setAllCategories();
     }, [])
 
-    const handleToggle = () => {
-        setIsOpen(prev => {
-            const newState = !prev;
-            onToggle(newState);  
-            return newState;
-        });
-    };
+    const setAllCategories = async () => {
+        const db_catedories = await getCategoriesNames();
+        setCategories([default_category, ...db_catedories])
+    }
 
-    return  (
-        <div className={isOpen ? "nav_menu open" : "nav_menu closed"}>
-            <div className={isOpen ? "menu_button_open" : "menu_button_close"} onClick={handleToggle}>
-                {isOpen ? '✖' : '▶'}
-            </div>
-            {isOpen && <h2 className='menu_title'>Categories: </h2>}
-            {isOpen && categories.map(category => (
-                <div className="category">
-                   <Link to={`/${category}`}><h3>{category}</h3></Link>
+    return (
+        <div className='nav_menu_container'>
+            <h2>Categories: </h2>
+            {categories.map((category, index) => (
+                <div className="category" key={index}>
+                    <Link to={category === default_category ? `/` : `/${category}`}>
+                        <h3 onClick={() => onResultsChange(category)}>{category}</h3>
+                    </Link>
                 </div>
             ))}
+
         </div>
     );
 }
 
 export default NavigationMenu;
-

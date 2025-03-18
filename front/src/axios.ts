@@ -1,6 +1,7 @@
 import axios from "axios";
 import { TypeProduct } from "./types";
-import { CATEGORY_URL, PRODUCT_URL } from "./configs/axios_urls";
+import { formatQuery } from "./utils";
+import { CATEGORY_URL, PRODUCT_URL, PRODUCT_SEARCH_URL } from "./configs/axios_urls";
 
 export const getCategoriesNames = async (): Promise<string[]> => {
     try {
@@ -37,3 +38,23 @@ export const getProductsByCategory = async (category: string | undefined, setPro
         }
     }
 }
+
+export const getSearchedProductNames = async (query: string, setResults: React.Dispatch<React.SetStateAction<TypeProduct[]>>, setLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
+    if (!query) {
+        setResults([]);
+        setLoading(false);
+        return;
+    }
+    setLoading(true);
+    try {
+        const format_query = formatQuery(query);
+        const response = await axios.get(`${PRODUCT_SEARCH_URL}${format_query}`);
+        const axios_result: TypeProduct[] = response.data.products;
+        setResults(axios_result.length ? axios_result : [{ title: "Not found" }]);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        setResults([{ title: "Not found" }]);
+    } finally {
+        setLoading(false);
+    }
+};
