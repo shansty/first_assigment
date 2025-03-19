@@ -2,13 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getCategoriesNames } from '../axios';
+import { useAppContext } from '../context/AppContext';
 
 interface NavigationMenuProps {
-    onResultsChange: (category: string) => void;
+    // onResultsChange: (category: string) => void;
     onToggle: (isOpen: boolean) => void
 }
 
-const NavigationMenu: React.FC<NavigationMenuProps> = ({ onResultsChange, onToggle }) => {
+// const NavigationMenu: React.FC<NavigationMenuProps> = ({ onResultsChange, onToggle }) => {
+
+const NavigationMenu: React.FC<NavigationMenuProps> = ({  onToggle }) => {
+    const { setCategory } = useAppContext();
     const default_category = "all categories"
     const [categories, setCategories] = useState<string[]>([default_category]);
     const [isOpen, setIsOpen] = useState(true)
@@ -20,9 +24,13 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ onResultsChange, onTogg
     const handleToggle = () => {
         setIsOpen(prev => {
             const newState = !prev;
-            onToggle(newState);  
+            onToggle(newState);
             return newState;
         });
+    };
+
+    const handleCategoryUpdate = (category: string) => {
+        setCategory(category);
     };
 
     const setAllCategories = async () => {
@@ -40,7 +48,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ onResultsChange, onTogg
                 {isOpen && categories.map((category, index) => (
                     <div className="category" key={index}>
                         <Link to={category === default_category ? `/` : `/${category}`}>
-                            <h3 onClick={() => onResultsChange(category)}>{category}</h3>
+                            <h3 onClick={() => handleCategoryUpdate(category)}>{category}</h3>
                         </Link>
                     </div>
                 ))}

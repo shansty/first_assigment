@@ -4,6 +4,7 @@ import { getProductData } from '../../axios';
 import { TypeProduct } from '../../types';
 import { Helmet } from 'react-helmet-async';
 import NavigationMenu from '../../utils_components/NavigationMenu';
+import BasePageLayout from '../../layouts/BasePageLayout';
 import './productPage.css'
 
 
@@ -19,14 +20,12 @@ const ProductPage = () => {
 
 
     return (
-        <div className='product_page'>
+        <>
             <Helmet>
                 <title>{`${product.title}` || 'Product Page'}</title>
                 <meta name="description" content={product.description || 'View product details'} />
             </Helmet>
-            <div className='nav_menu'>
-                <NavigationMenu />
-            </div>
+            <BasePageLayout>
             <div className='product_page_container'>
                 <div className="product_content">
                     <img src={product.image} className='card_product_image' />
@@ -35,7 +34,8 @@ const ProductPage = () => {
                     <p className='card_product_price'>{product.price}</p>
                 </div>
             </div >
-        </div>
+            </BasePageLayout>
+        </>
     );
 }
 export default ProductPage;
