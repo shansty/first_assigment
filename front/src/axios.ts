@@ -8,7 +8,6 @@ export const getCategoriesNames = async (): Promise<string[]> => {
         const response = await axios.get((CATEGORY_URL),
             { headers: { 'Content-Type': 'application/json' } });
         const categories: string[] = response.data.categories;
-
         return categories;
     } catch (err: any) {
         if (err.response.data) {
@@ -25,7 +24,6 @@ export const getProductsByCategory = async (category: string | undefined, setPro
     try {
         const response = await axios.get(`${PRODUCT_URL}/${category}`,
             { headers: { 'Content-Type': 'application/json' } });
-
         const products = await response.data.products;
         setProducts(products);
     } catch (err: any) {
@@ -63,10 +61,7 @@ export const getProductData = async (product_id: string, setProduct: React.Dispa
         const response = await axios.get(`${PRODUCT_ID_URL}/${id}`,
             { headers: { 'Content-Type': 'application/json' } });
         const product: TypeProduct = await response.data.product;
-        const test = response.data
-        console.dir({test})
         setProduct(product)
-        console.dir({product})
     } catch (error) {
         console.error(error);
     }
