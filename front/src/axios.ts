@@ -3,7 +3,7 @@ import { TypeProduct } from "./types";
 import { formatQuery } from "./utils";
 import { CATEGORY_URL, PRODUCT_URL, PRODUCT_SEARCH_URL, PRODUCT_ID_URL } from "./configs/axios_urls";
 
-export const getCategoriesNames = async (): Promise<string[]> => {
+export const getCategoriesNames = async ()=> {
     try {
         const response = await axios.get((CATEGORY_URL),
             { headers: { 'Content-Type': 'application/json' } });
