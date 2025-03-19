@@ -4,3 +4,4 @@ export const PRODUCT_URL = `${process.env.REACT_APP_AXIOS_HOST}/product`
 
 export const PRODUCT_SEARCH_URL = `${process.env.REACT_APP_AXIOS_HOST}/product?search=`
 
+export const PRODUCT_ID_URL = `${process.env.REACT_APP_AXIOS_HOST}/product/product_id`
