@@ -9,9 +9,7 @@ const HeaderDropdown: React.FC = () => {
                 <p className='profile_name'>Name LastName</p>
             </button>
             <div className="dropdown-content">
-                <a href="#">Profile</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
+                <a href="/profile">Profile</a>
             </div>
         </div>
     );
