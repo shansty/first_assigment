@@ -1,10 +1,12 @@
 
 import React, { useState } from 'react';
 import NavigationMenu from '../../utils_components/NavigationMenu';
-import MainContent from './components/MainContent';
 import ProductSearch from '../../utils_components/product_search/ProductSearch';
 import { TypeProduct } from '../../types';
 import Search from './components/Search';
+import React from 'react';
+import BasePageLayout from '../../layouts/BasePageLayout';
+import MainContent from './components/MainContent';
 import './mainPage.css'
 
 const MainPage: React.FC = () => {
@@ -21,17 +23,9 @@ const MainPage: React.FC = () => {
     };
 
     return (
-        <div className='main_page_container'>
-            <div className='nav_menu'>
-                <NavigationMenu onResultsChange={handleCategoryUpdate} onToggle={setIsMenuOpen} />
-            </div>
-            <div className='main_content'>
-                <ProductSearch category={category} onResultsChange={handleResultsUpdate} />
-                <div className={isMenuOpen ? "main_content expanded" : "main_content collapsed"}>
-                    <MainContent category={category} searchResults={searchResults} />
-                </div>
-            </div>
-        </div>
+        <BasePageLayout>
+            <MainContent />
+        </BasePageLayout>
     );
 };
 
