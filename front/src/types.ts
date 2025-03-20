@@ -7,3 +7,12 @@ export type TypeProduct = {
     category_id?: number;
     _id?: string;
 };
+
+export type TypeUser = {
+    id?: number;
+    email?: string;
+    password: string;
+    first_name?: string;
+    last_name?: string;
+    address?: string
+};

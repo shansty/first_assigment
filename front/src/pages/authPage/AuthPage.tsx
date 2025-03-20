@@ -1,27 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { TypeUser } from '../../types';
+import { signIn, signUp } from '../../axios';
+import { getUserIdAndNavigateToProfile } from '../../utils';
 import './authPage.css'
-// import { signIn, signUp } from '../../axios';
-// import axios from 'axios';
-
 
 const AuthPage: React.FC = () => {
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("")
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [addres, setAddres] = useState("");
-    const [isRegister, setIsRegister] = useState(true);
+    const empty_user_data: TypeUser = {
+        email: "",
+        password: "",
+        first_name: "",
+        last_name: "",
+        address: "",
+    }
 
+    const [user, setUser] = useState<TypeUser>(empty_user_data);
+    const [isRegister, setIsRegister] = useState(true);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        getUserIdAndNavigateToProfile(navigate);
+    }, [])
+
     const login = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        // signIn(e, username, password, setUsername, setPassword, navigate)
+        await signIn(e, user)
+        getUserIdAndNavigateToProfile(navigate);
     }
 
     const register = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        // signUp(e, setIsRegister, isRegister, email, password, username, setEmail, setUsername, setPassword)
+        await signUp(e, user)
+        getUserIdAndNavigateToProfile(navigate)
     }
 
     const handleClick = () => {
@@ -34,27 +43,30 @@ const AuthPage: React.FC = () => {
                 <form className="auth_form">
                     <label htmlFor="email" /> Email
                     <input
-                        value={email}
+                        required
+                        value={user.email}
                         placeholder="Please enter email"
                         id="email"
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => setUser({ ...user, email: e.target.value })}
                     />
 
                     <label htmlFor="password" /> Password
                     <input
-                        value={password}
+                        required
+                        value={user.password}
                         placeholder="Please enter password"
                         id="password"
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) => setUser({ ...user, password: e.target.value })}
                     />
                     {!isRegister && (
                         <>
                             <label htmlFor='firstName' /> First Name
                             <input
-                                value={firstName}
+                                required
+                                value={user.first_name}
                                 placeholder="Please enter first name"
                                 id="firstName"
-                                onChange={(e) => setFirstName(e.target.value)}
+                                onChange={(e) => setUser({ ...user, first_name: e.target.value })}
                             />
                         </>
                     )}
@@ -63,10 +75,10 @@ const AuthPage: React.FC = () => {
                         <>
                             <label htmlFor='lastName' /> Last Name
                             <input
-                                value={lastName}
+                                value={user.last_name}
                                 placeholder="Please enter last name"
                                 id="lastName"
-                                onChange={(e) => setLastName(e.target.value)}
+                                onChange={(e) => setUser({ ...user, last_name: e.target.value })}
                             />
                         </>
                     )}
@@ -75,10 +87,11 @@ const AuthPage: React.FC = () => {
                         <>
                             <label htmlFor='addres' /> Addres
                             <input
-                                value={addres}
+                                required
+                                value={user.address}
                                 placeholder="Please enter addres"
                                 id="addres"
-                                onChange={(e) => setAddres(e.target.value)}
+                                onChange={(e) => setUser({ ...user, address: e.target.value })}
                             />
                         </>
                     )}

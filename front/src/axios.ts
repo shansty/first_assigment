@@ -1,9 +1,11 @@
 import axios from "axios";
-import { TypeProduct } from "./types";
+import { TypeProduct, TypeUser } from "./types";
+import { NavigateFunction } from "react-router-dom";
 import { formatQuery } from "./utils";
-import { CATEGORY_URL, PRODUCT_URL, PRODUCT_SEARCH_URL, PRODUCT_ID_URL } from "./configs/axios_urls";
+import { CATEGORY_URL, PRODUCT_URL, PRODUCT_SEARCH_URL, PRODUCT_ID_URL, USER_URL, USER_LOGIN_URL } from "./configs/axios_urls";
 
-export const getCategoriesNames = async ()=> {
+
+export const getCategoriesNames = async () => {
     try {
         const response = await axios.get((CATEGORY_URL),
             { headers: { 'Content-Type': 'application/json' } });
@@ -66,3 +68,36 @@ export const getProductData = async (product_id: string, setProduct: React.Dispa
         console.error(error);
     }
 };
+
+export const signUp = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, user: TypeUser) => {
+    e.preventDefault();
+    try {
+        const response = await axios.post(USER_URL, { user },
+            { headers: { 'Content-Type': 'application/json' } });
+        const token = response?.data?.token;
+        localStorage.setItem("token", token);
+    } catch (err: any) {
+        if (err.response.data) {
+            window.alert(` ${err.response.data.message}`);
+        } else {
+            window.alert(`Error: ${err}`);
+        }
+    }
+}
+
+
+export const signIn = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, user: TypeUser) => {
+    e.preventDefault();
+    try {
+        const response = await axios.post(USER_LOGIN_URL, { user },
+            { headers: { 'Content-Type': 'application/json' } });
+        const token = response?.data?.token;
+        localStorage.setItem("token", token);
+    } catch (err: any) {
+        if (err.response.data) {
+            window.alert(` ${err.response.data.message}`);
+        } else {
+            window.alert(`Error: ${err}`);
+        }
+    }
+}
