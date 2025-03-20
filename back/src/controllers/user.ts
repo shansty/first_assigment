@@ -1,8 +1,5 @@
 import { Request, Response } from 'express';
-import { IUser } from '../models/user';
-import User from '../models/user';
-import * as jwt from 'jsonwebtoken'
-import { Types } from "mongoose";
+import { generateToken, getUserByQuery, updateUser, createUser } from './utils';
 
 
 export const register = async (req: Request, res: Response) => {
@@ -11,19 +8,13 @@ export const register = async (req: Request, res: Response) => {
         res.status(404).json({ message: 'Requred data is empty' })
         return;
     }
-    const already_registered_user = await User.findOne({ email: user.email })
-
+    const already_registered_user = await getUserByQuery({ email: user.email });
     if (already_registered_user) {
         res.status(404).json({ message: "User already registered" })
     }
-
-    const createdUser = await User.create({
-        email: user.email,
-        password: user.password,
-        first_name: user.first_name,
-        last_name: user.last_name,
-        address: user.address
-    });
+    const createdUser = await createUser(user);
+    const token = generateToken(createdUser._id)
+    res.status(200).json({ token: token })
 }
 
 
@@ -33,20 +24,19 @@ export const login = async (req: Request, res: Response) => {
         res.json({ message: 'Requred data is empty' })
         return;
     }
-    const loginUser = await User.findOne({ email: user.email, password: user.password });
-
+    const loginUser = await getUserByQuery({ email: user.email, password: user.password });
     if (!loginUser) {
         res.status(404).json({ message: "User not registered" });
         return;
     }
-
     const token = generateToken(loginUser._id)
     res.status(200).json({ token: token })
 }
 
+
 export const getUserData = async (req: Request, res: Response) => {
     const user_id = req.params.user_id;
-    const user = await User.findOne({ _id: user_id });
+    const user = await getUserByQuery({ _id: user_id });
     if (!user) {
         res.status(404).json({ message: "User data not found" });
         return;
@@ -58,11 +48,7 @@ export const getUserData = async (req: Request, res: Response) => {
 export const editUserData = async (req: Request, res: Response) => {
     const user_id = req.params.user_id;
     const user_data = req.body.user;
-    const edited_user = await User.findByIdAndUpdate(
-        user_id,
-        { $set: user_data },
-        { new: true, runValidators: true }
-    );
+    const edited_user = await updateUser(user_id, user_data);
     if (!edited_user) {
         return res.status(404).json({ message: "User not found" });
     }
@@ -70,7 +56,3 @@ export const editUserData = async (req: Request, res: Response) => {
 }
 
 
-const generateToken = (id: Types.ObjectId) => {
-    const secret = process.env.SECRET_KEY as string;
-    return jwt.sign({ id }, secret, { expiresIn: '60h' });
-}
