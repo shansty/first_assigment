@@ -16,6 +16,14 @@ export const register = async (req: Request, res: Response) => {
         res.status(400).json({ message: 'First name field is empty' })
         return;
     }
+    if (user.first_name && user.first_name.length > 31) {
+        res.status(400).json({ message: 'First name is too long' })
+        return;
+    }
+    if (user.last_name && user.last_name.length > 31) {
+        res.status(400).json({ message: 'Last name is too long' })
+        return;
+    }
     const already_registered_user = await getUserByQuery({ email: user.email });
     if (already_registered_user) {
         res.status(400).json({ message: "This email has already taken" })
@@ -61,12 +69,21 @@ export const getUserData = async (req: Request, res: Response) => {
 export const editUserData = async (req: Request, res: Response) => {
     const user_id = req.params.user_id;
     const user_data = req.body.user;
-    if (user_data.email == "") {
+
+    if (!user_data.email || user_data.email == "") {
         res.status(400).json({ message: 'Email field is empty', user: user_data })
         return;
     }
-    if (user_data.first_name == "") {
+    if (!user_data.first_name || user_data.first_name == "") {
         res.status(400).json({ message: 'First name field is empty', user: user_data })
+        return;
+    }
+    if (user_data.first_name.length > 31) {
+        res.status(400).json({ message: 'First name field is too long', user: user_data })
+        return;
+    }
+    if (user_data.last_name && user_data.last_name.length > 31) {
+        res.status(400).json({ message: 'First name field is too long', user: user_data })
         return;
     }
     const edited_user = await updateUser(user_id, user_data);
@@ -75,5 +92,3 @@ export const editUserData = async (req: Request, res: Response) => {
     }
     res.status(200).json({ user: edited_user })
 }
-
-
