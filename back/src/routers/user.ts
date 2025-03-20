@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { getProductsByCategory, getSearchedProductTitles } from "../controllers/product";
+import { register, login } from "../controllers/user";
 
 const userRoutes:Router = Router();
 
-userRoutes.get('/',  getProductsByCategory)
+userRoutes.post('/register',  register)
+userRoutes.post('/login',  login)
 
 export default userRoutes;
