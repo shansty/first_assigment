@@ -1,8 +1,20 @@
-import React from 'react';
 import ProfileForm from './ProfileForm';
+import { getToken } from '../../utils';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import './profilePage.css'
 
-//смотрит, есть ли токен 
 const ProfilePage = () => {
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = getToken();
+        if (!token) {
+            navigate('/login')
+        }
+    }, []);
+
     return (
         <div>
             <ProfileForm />
