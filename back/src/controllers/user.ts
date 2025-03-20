@@ -19,6 +19,7 @@ export const register = async (req: Request, res: Response) => {
     const already_registered_user = await getUserByQuery({ email: user.email });
     if (already_registered_user) {
         res.status(400).json({ message: "This email has already taken" })
+        return;
     }
     const createdUser = await createUser(user);
     const token = generateToken(createdUser._id)
@@ -60,11 +61,19 @@ export const getUserData = async (req: Request, res: Response) => {
 export const editUserData = async (req: Request, res: Response) => {
     const user_id = req.params.user_id;
     const user_data = req.body.user;
+    if (user_data.email == "") {
+        res.status(400).json({ message: 'Email field is empty', user: user_data })
+        return;
+    }
+    if (user_data.first_name == "") {
+        res.status(400).json({ message: 'First name field is empty', user: user_data })
+        return;
+    }
     const edited_user = await updateUser(user_id, user_data);
     if (!edited_user) {
         return res.status(400).json({ message: "Unable to find user with this credentials" });
     }
-    res.status(200).json({ edited_user: edited_user })
+    res.status(200).json({ user: edited_user })
 }
 
 

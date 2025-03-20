@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { getUserData } from '../../axios';
-import { useParams, Params } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { TypeUser } from '../../types';
 import { editUserData } from '../../axios';
 
@@ -17,6 +17,7 @@ const ProfileForm = () => {
     const [allowEdit, setAllowEdit] = useState(false);
     const [user, setUser] = useState(empty_user_data);
     const { user_id } = useParams<{ user_id: string }>();
+    const navigate = useNavigate();
 
     useEffect(() => {
         setUserDataFromServer();
@@ -36,7 +37,8 @@ const ProfileForm = () => {
 
     const handleSubmit = async () => {
         setAllowEdit(false);
-        editUserData(user, user_id as string)
+        await editUserData(user, user_id as string)
+        navigate(0)
     }
 
     return (

@@ -73,6 +73,7 @@ export const signUp = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     try {
         const response = await axios.post(USER_URL, { user },
             { headers: { 'Content-Type': 'application/json' } });
+
         const token = response?.data?.token;
         localStorage.setItem("token", token);
     } catch (err: any) {
@@ -120,7 +121,7 @@ export const editUserData = async ( user: TypeUser, user_id: string) => {
     try {
         const response = await axios.patch(`${USER_URL}/${user_id}`, { user }, 
             { headers: { 'Content-Type': 'application/json' } });
-        const edited_user: TypeUser = response.data.edited_user;
+        const edited_user: TypeUser = response.data.user;
         return edited_user;
     } catch (err: any) {
         if (err.response.data) {
