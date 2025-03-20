@@ -11,7 +11,7 @@ export type TypeProduct = {
 export type TypeUser = {
     id?: number;
     email?: string;
-    password: string;
+    password?: string;
     first_name?: string;
     last_name?: string;
     address?: string

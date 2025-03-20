@@ -1,9 +1,33 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { getUserData } from '../../axios';
+import { useParams, Params } from 'react-router-dom';
+import { TypeUser } from '../../types';
+import { editUserData } from '../../axios';
 
 const ProfileForm = () => {
+    const empty_user_data: TypeUser = {
+            email: "",
+            password: "",
+            first_name: "",
+            last_name: "",
+            address: "",
+        }
+
     const [allowEdit, setAllowEdit] = useState(false);
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState(empty_user_data);
+    const { user_id } = useParams<{ user_id: string }>();
+
+    useEffect(() => {
+        setUserDataFromServer();
+    }, [])
+
+    const setUserDataFromServer = async () => {
+        const data = await getUserData(user_id as string);
+        if (data) {
+            setUser(data)
+        }
+    }
 
     const handleEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -12,9 +36,7 @@ const ProfileForm = () => {
 
     const handleSubmit = async () => {
         setAllowEdit(false);
-
-        //     await axios.patch(PROFILE_URL, user,  
-
+        editUserData(user, user_id as string)
     }
 
     return (
@@ -29,7 +51,7 @@ const ProfileForm = () => {
                             type="text"
                             id="first_name"
                             onChange={(e) => setUser({ ...user, first_name: e.target.value })}
-                            // value={user.first_name}
+                            value={user.first_name}
                             disabled={!allowEdit}
                         />
                     </div>
@@ -39,7 +61,7 @@ const ProfileForm = () => {
                             type="text"
                             id="last_name"
                             onChange={(e) => setUser({ ...user, last_name: e.target.value })}
-                            // value={user.last_name}
+                            value={user.last_name}
                             disabled={!allowEdit}
                         />
                     </div>
@@ -49,7 +71,7 @@ const ProfileForm = () => {
                             type="email"
                             id="email"
                             onChange={(e) => setUser({ ...user, email: e.target.value })}
-                            // value={user.email}
+                            value={user.email}
                             disabled={!allowEdit}
                         />
                     </div>
@@ -58,8 +80,8 @@ const ProfileForm = () => {
                         <input
                             type="text"
                             id="addres"
-                            onChange={(e) => setUser({ ...user, addres: e.target.value })}
-                            // value={user.addres}
+                            onChange={(e) => setUser({ ...user, address: e.target.value })}
+                            value={user.address}
                             disabled={!allowEdit}
                         />
                     </div>

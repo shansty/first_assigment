@@ -1,6 +1,5 @@
 import axios from "axios";
 import { TypeProduct, TypeUser } from "./types";
-import { NavigateFunction } from "react-router-dom";
 import { formatQuery } from "./utils";
 import { CATEGORY_URL, PRODUCT_URL, PRODUCT_SEARCH_URL, PRODUCT_ID_URL, USER_URL, USER_LOGIN_URL } from "./configs/axios_urls";
 
@@ -93,6 +92,36 @@ export const signIn = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
             { headers: { 'Content-Type': 'application/json' } });
         const token = response?.data?.token;
         localStorage.setItem("token", token);
+    } catch (err: any) {
+        if (err.response.data) {
+            window.alert(` ${err.response.data.message}`);
+        } else {
+            window.alert(`Error: ${err}`);
+        }
+    }
+}
+
+export const getUserData = async (user_id: string) => {
+    try {
+        const response = await axios.get(`${USER_URL}/${user_id}`,
+            { headers: { 'Content-Type': 'application/json' } });
+        const user: TypeUser = response.data.user;
+        return user;
+    } catch (err: any) {
+        if (err.response.data) {
+            window.alert(` ${err.response.data.message}`);
+        } else {
+            window.alert(`Error: ${err}`);
+        }
+    }
+}
+
+export const editUserData = async ( user: TypeUser, user_id: string) => {
+    try {
+        const response = await axios.patch(`${USER_URL}/${user_id}`, { user }, 
+            { headers: { 'Content-Type': 'application/json' } });
+        const edited_user: TypeUser = response.data.edited_user;
+        return edited_user;
     } catch (err: any) {
         if (err.response.data) {
             window.alert(` ${err.response.data.message}`);

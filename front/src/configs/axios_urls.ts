@@ -10,3 +10,4 @@ export const USER_URL = `${process.env.REACT_APP_AXIOS_HOST}/user`
 
 export const USER_LOGIN_URL = `${process.env.REACT_APP_AXIOS_HOST}/user/login`
 
+export const USER_DATA_URL = `${process.env.REACT_APP_AXIOS_HOST}/user`

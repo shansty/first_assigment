@@ -11,10 +11,10 @@ export const register = async (req: Request, res: Response) => {
         res.status(404).json({ message: 'Requred data is empty' })
         return;
     }
-    const already_registered_user = await User.findOne({email: user.email})
+    const already_registered_user = await User.findOne({ email: user.email })
 
-    if(already_registered_user) {
-        res.status(404).json({message: "User already registered"})
+    if (already_registered_user) {
+        res.status(404).json({ message: "User already registered" })
     }
 
     const createdUser = await User.create({
@@ -42,6 +42,31 @@ export const login = async (req: Request, res: Response) => {
 
     const token = generateToken(loginUser._id)
     res.status(200).json({ token: token })
+}
+
+export const getUserData = async (req: Request, res: Response) => {
+    const user_id = req.params.user_id;
+    const user = await User.findOne({ _id: user_id });
+    if (!user) {
+        res.status(404).json({ message: "User data not found" });
+        return;
+    }
+    res.status(200).json({ user: user })
+}
+
+
+export const editUserData = async (req: Request, res: Response) => {
+    const user_id = req.params.user_id;
+    const user_data = req.body.user;
+    const edited_user = await User.findByIdAndUpdate(
+        user_id,
+        { $set: user_data },
+        { new: true, runValidators: true }
+    );
+    if (!edited_user) {
+        return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json({ edited_user: edited_user })
 }
 
 
