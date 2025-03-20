@@ -7,12 +7,12 @@ import { editUserData } from '../../axios';
 
 const ProfileForm = () => {
     const empty_user_data: TypeUser = {
-            email: "",
-            password: "",
-            first_name: "",
-            last_name: "",
-            address: "",
-        }
+        email: "",
+        password: "",
+        first_name: "",
+        last_name: "",
+        address: "",
+    }
 
     const [allowEdit, setAllowEdit] = useState(false);
     const [user, setUser] = useState(empty_user_data);
@@ -50,6 +50,9 @@ const ProfileForm = () => {
                     <div className="profile_form_field">
                         <label htmlFor="first_name">First name:</label>
                         <input
+                            required
+                            minLength={1}
+                            maxLength={30}
                             type="text"
                             id="first_name"
                             onChange={(e) => setUser({ ...user, first_name: e.target.value })}
@@ -60,6 +63,8 @@ const ProfileForm = () => {
                     <div className="profile_form_field">
                         <label htmlFor="last_name">Last name:</label>
                         <input
+                            minLength={1}
+                            maxLength={30}
                             type="text"
                             id="last_name"
                             onChange={(e) => setUser({ ...user, last_name: e.target.value })}
@@ -70,6 +75,7 @@ const ProfileForm = () => {
                     <div className="profile_form_field">
                         <label htmlFor="email">Email:</label>
                         <input
+                            required
                             type="email"
                             id="email"
                             onChange={(e) => setUser({ ...user, email: e.target.value })}
