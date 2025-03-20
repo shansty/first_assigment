@@ -29,8 +29,8 @@ const AuthPage: React.FC = () => {
     }
 
     return (
-        <div className='block formBlock'>
-            <div className='container-fluid'>
+        <div className='formBlock'>
+            <div className='form_conteiner'>
                 <form className="auth_form">
                     <label htmlFor="email" /> Email
                     <input
@@ -85,7 +85,7 @@ const AuthPage: React.FC = () => {
 
                     {isRegister && (
                         <>
-                            <button className='sign_in_btns btn-auth' onClick={login}>Sign In</button>
+                            <button className='btn-auth' onClick={login}>Sign In</button>
                             <p className="form_text" onClick={handleClick}>Don't have an account? Click to register.</p>
                         </>
                     )}
