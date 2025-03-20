@@ -15,24 +15,22 @@
     padding: 10px;
 }
 
-.logo_img{
+.logo_img {
     display: flex;
     width: 45px;
     align-items: center;
 }
 
-.dropdown .dropbtn {
+.dropbtn {
     height: 45px;
-    width: auto; 
     display: flex;
     align-items: center;
     justify-content: flex-end;
     border: none;
     background-color: inherit;
-    margin-right: 10%;
 }
 
-.profile_img{
+.profile_img {
     cursor: pointer;
     display: block;
     width: 35px;
@@ -42,6 +40,11 @@
     cursor: pointer;
     color: white;
     margin-left: 3%;
+    white-space: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    display: block
 }
 
 @media only screen and (max-width: 400px) {

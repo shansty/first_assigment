@@ -62,6 +62,8 @@ const AuthPage: React.FC = () => {
                         <>
                             <label htmlFor='firstName' /> First Name
                             <input
+                                minLength={1}
+                                maxLength={30}
                                 required
                                 value={user.first_name}
                                 placeholder="Please enter first name"
@@ -75,6 +77,8 @@ const AuthPage: React.FC = () => {
                         <>
                             <label htmlFor='lastName' /> Last Name
                             <input
+                                minLength={1}
+                                maxLength={30}
                                 value={user.last_name}
                                 placeholder="Please enter last name"
                                 id="lastName"
