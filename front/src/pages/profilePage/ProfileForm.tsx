@@ -6,30 +6,17 @@ import { TypeUser } from '../../types';
 import { editUserData } from '../../axios';
 import FormField from '../../utils_components/FormField';
 
-const ProfileForm = () => {
-    const empty_user_data: TypeUser = {
-        email: "",
-        password: "",
-        first_name: "",
-        last_name: "",
-        address: "",
-    }
+interface ProfileFormProps {
+    user: TypeUser,
+    setUser: React.Dispatch<React.SetStateAction<TypeUser>>,
+    user_id: string | undefined,
+    token: string
+}
+
+const ProfileForm:React.FC<ProfileFormProps> = ({ user, setUser, user_id, token }) => {
 
     const [allowEdit, setAllowEdit] = useState(false);
-    const [user, setUser] = useState(empty_user_data);
-    const { user_id } = useParams<{ user_id: string }>();
     const navigate = useNavigate();
-
-    useEffect(() => {
-        setUserDataFromServer();
-    }, [])
-
-    const setUserDataFromServer = async () => {
-        const data = await getUserData(user_id as string);
-        if (data) {
-            setUser(data)
-        }
-    }
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
@@ -47,7 +34,7 @@ const ProfileForm = () => {
 
     const handleSubmit = async () => {
         setAllowEdit(false);
-        await editUserData(user, user_id as string)
+        await editUserData(user, user_id as string, token, navigate)
         navigate(0)
     }
 

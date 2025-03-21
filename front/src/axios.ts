@@ -1,10 +1,11 @@
 import axios from "axios";
 import { TypeProduct, TypeUser } from "./types";
+import { Navigate, NavigateFunction, useNavigate } from "react-router-dom";
 import { formatQuery } from "./utils";
 import { CATEGORY_URL, PRODUCT_URL, PRODUCT_SEARCH_URL, PRODUCT_ID_URL, USER_URL, USER_LOGIN_URL } from "./configs/axios_urls";
 
-
 export const getCategoriesNames = async () => {
+
     try {
         const response = await axios.get((CATEGORY_URL),
             { headers: { 'Content-Type': 'application/json' } });
@@ -102,25 +103,36 @@ export const signIn = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     }
 }
 
-export const getUserData = async (user_id: string) => {
+export const getUserData = async (user_id: string, token: string, navigate:NavigateFunction) => {
     try {
         const response = await axios.get(`${USER_URL}/${user_id}`,
-            { headers: { 'Content-Type': 'application/json' } });
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
         const user: TypeUser = response.data.user;
         return user;
     } catch (err: any) {
         if (err.response.data) {
             window.alert(` ${err.response.data.message}`);
+            navigate(0)
         } else {
             window.alert(`Error: ${err}`);
         }
     }
 }
 
-export const editUserData = async ( user: TypeUser, user_id: string) => {
+export const editUserData = async (user: TypeUser, user_id: string, token: string, navigate:NavigateFunction) => {
     try {
-        const response = await axios.patch(`${USER_URL}/${user_id}`, { user }, 
-            { headers: { 'Content-Type': 'application/json' } });
+        const response = await axios.patch(`${USER_URL}/${user_id}`, { user },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
         const edited_user: TypeUser = response.data.user;
         return edited_user;
     } catch (err: any) {
@@ -129,5 +141,7 @@ export const editUserData = async ( user: TypeUser, user_id: string) => {
         } else {
             window.alert(`Error: ${err}`);
         }
+    } finally {
+        navigate('/')
     }
 }
