@@ -123,7 +123,7 @@ export const getUserData = async (user_id: string, token: string) => {
     }
 }
 
-export const editUserData = async (user: TypeUser, user_id: string, token: string, navigate:NavigateFunction) => {
+export const editUserData = async (user: TypeUser, user_id: string, token: string) => {
     try {
         const response = await axios.patch(`${USER_URL}/${user_id}`, { user },
             {
@@ -140,7 +140,5 @@ export const editUserData = async (user: TypeUser, user_id: string, token: strin
         } else {
             window.alert(`Error: ${err}`);
         }
-    } finally {
-        navigate('/')
     }
 }

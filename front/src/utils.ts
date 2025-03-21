@@ -35,6 +35,6 @@ export const getUserIdAndNavigateToProfile = (navigate: NavigateFunction): strin
     }
     const user_id = getIDFromToken(token);
     console.dir({ user_id })
-    navigate(`/profile/${user_id}`)
+    navigate(`/profile`)
 }
 

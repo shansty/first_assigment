@@ -34,7 +34,7 @@ const ProfileForm:React.FC<ProfileFormProps> = ({ user, setUser, user_id, token 
 
     const handleSubmit = async () => {
         setAllowEdit(false);
-        await editUserData(user, user_id as string, token, navigate)
+        await editUserData(user, user_id as string, token)
         navigate(0)
     }
 

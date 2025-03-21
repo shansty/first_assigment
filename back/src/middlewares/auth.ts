@@ -12,7 +12,6 @@ const authMiddleware = async (req: Request, res: Response, next: NextFunction): 
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
     const secret = process.env.SECRET_KEY;
-    const user_id = req.params.user_id;
 
     if (!token) {
         res.status(401).json({ message: 'User not authorized.' });
@@ -25,12 +24,6 @@ const authMiddleware = async (req: Request, res: Response, next: NextFunction): 
             res.status(401).json({ message: 'Invalid token.' });
             return;
         }
-
-        if (decoded.id !== user_id) {
-            res.status(403).json({ message: 'User not authorized.' });
-            return;
-        }
-
         const user = await getUserByQuery({ _id: decoded.id })
         if (!user) {
             res.status(401).json({ message: 'Unable to find user' });

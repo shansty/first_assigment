@@ -1,6 +1,6 @@
 import ProfileForm from './ProfileForm';
-import { getToken } from '../../utils';
-import { useNavigate, useParams } from 'react-router-dom';
+import { getIDFromToken, getToken } from '../../utils';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { TypeUser } from '../../types';
 import { getUserData } from '../../axios';
@@ -18,13 +18,13 @@ const ProfilePage = () => {
 
     const [user, setUser] = useState(empty_user_data);
     const navigate = useNavigate();
-    const { user_id } = useParams<{ user_id: string }>();
     let token = getToken() as string;
+    const user_id = getIDFromToken(token);
 
     useEffect(() => {
         if (!token) {
             navigate('/login')
-        }
+        } 
     }, []);
 
     useEffect(() => {
