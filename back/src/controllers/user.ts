@@ -26,7 +26,7 @@ export const register = async (req: Request, res: Response) => {
     }
     const already_registered_user = await getUserByQuery({ email: user.email });
     if (already_registered_user) {
-        res.status(400).json({ message: "This email has already taken" })
+        res.status(400).json({ message: "This email is already taken" })
         return;
     }
     const createdUser = await createUser(user);

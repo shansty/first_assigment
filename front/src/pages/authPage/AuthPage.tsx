@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { TypeUser } from '../../types';
 import { signIn, signUp } from '../../axios';
 import { getUserIdAndNavigateToProfile } from '../../utils';
+import FormField from '../../utils_components/FormField';
+import NonRegistredField from './NonRegistredField';
 import './authPage.css'
 
 const AuthPage: React.FC = () => {
@@ -33,6 +35,15 @@ const AuthPage: React.FC = () => {
         getUserIdAndNavigateToProfile(navigate)
     }
 
+    const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        const { id, value } = e.target;
+        setUser((prevUser) => ({
+            ...prevUser,
+            [id]: value,
+        }));
+    }
+
     const handleClick = () => {
         setIsRegister(!isRegister)
     }
@@ -41,76 +52,29 @@ const AuthPage: React.FC = () => {
         <div className='formBlock'>
             <div className='form_conteiner'>
                 <form className="auth_form">
-                    <label htmlFor="email" /> Email
-                    <input
-                        required
-                        value={user.email}
-                        placeholder="Please enter email"
+                    <FormField
+                        value={user.email as string}
+                        required={true}
                         id="email"
-                        onChange={(e) => setUser({ ...user, email: e.target.value })}
+                        handleOnChange={handleOnChange}
+                        type={"text"}
+                        placeholder={"Please enter email"}
                     />
-
-                    <label htmlFor="password" /> Password
-                    <input
-                        required
-                        value={user.password}
-                        placeholder="Please enter password"
+                    <FormField
+                        value={user.password as string}
+                        required={true}
                         id="password"
-                        onChange={(e) => setUser({ ...user, password: e.target.value })}
+                        handleOnChange={handleOnChange}
+                        type={"text"}
+                        placeholder={"Please enter password"}
                     />
-                    {!isRegister && (
-                        <>
-                            <label htmlFor='firstName' /> First Name
-                            <input
-                                minLength={1}
-                                maxLength={30}
-                                required
-                                value={user.first_name}
-                                placeholder="Please enter first name"
-                                id="firstName"
-                                onChange={(e) => setUser({ ...user, first_name: e.target.value })}
-                            />
-                        </>
-                    )}
 
-                    {!isRegister && (
-                        <>
-                            <label htmlFor='lastName' /> Last Name
-                            <input
-                                minLength={1}
-                                maxLength={30}
-                                value={user.last_name}
-                                placeholder="Please enter last name"
-                                id="lastName"
-                                onChange={(e) => setUser({ ...user, last_name: e.target.value })}
-                            />
-                        </>
-                    )}
-
-                    {!isRegister && (
-                        <>
-                            <label htmlFor='addres' /> Addres
-                            <input
-                                required
-                                value={user.address}
-                                placeholder="Please enter addres"
-                                id="addres"
-                                onChange={(e) => setUser({ ...user, address: e.target.value })}
-                            />
-                        </>
-                    )}
+                   {!isRegister && <NonRegistredField user={user} handleOnChange={handleOnChange} register={register} handleClick={handleClick}/>}
 
                     {isRegister && (
                         <>
                             <button className='btn-auth' onClick={login}>Sign In</button>
                             <p className="form_text" onClick={handleClick}>Don't have an account? Click to register.</p>
-                        </>
-                    )}
-
-                    {!isRegister && (
-                        <>
-                            <button className='btn-auth' onClick={register}>Sign Up</button>
-                            <p className="form_text" onClick={handleClick}>Click for sign in.</p>
                         </>
                     )}
                 </form>

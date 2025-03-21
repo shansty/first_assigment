@@ -4,6 +4,7 @@ import { getUserData } from '../../axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { TypeUser } from '../../types';
 import { editUserData } from '../../axios';
+import FormField from '../../utils_components/FormField';
 
 const ProfileForm = () => {
     const empty_user_data: TypeUser = {
@@ -30,6 +31,15 @@ const ProfileForm = () => {
         }
     }
 
+    const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        const { id, value } = e.target;
+        setUser((prevUser) => ({
+            ...prevUser,
+            [id]: value,
+        }));
+    }
+
     const handleEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         setAllowEdit(true);
@@ -44,58 +54,48 @@ const ProfileForm = () => {
     return (
         <div className='profile_page'>
             <div className='profile_container'>
-                <h2>Ваш профиль</h2>
+                <h2>Your profile</h2>
 
                 <form className="profile_form">
-                    <div className="profile_form_field">
-                        <label htmlFor="first_name">First name:</label>
-                        <input
-                            required
-                            minLength={1}
-                            maxLength={30}
-                            type="text"
-                            id="first_name"
-                            onChange={(e) => setUser({ ...user, first_name: e.target.value })}
-                            value={user.first_name}
-                            disabled={!allowEdit}
-                        />
-                    </div>
-                    <div className="profile_form_field">
-                        <label htmlFor="last_name">Last name:</label>
-                        <input
-                            minLength={1}
-                            maxLength={30}
-                            type="text"
-                            id="last_name"
-                            onChange={(e) => setUser({ ...user, last_name: e.target.value })}
-                            value={user.last_name}
-                            disabled={!allowEdit}
-                        />
-                    </div>
-                    <div className="profile_form_field">
-                        <label htmlFor="email">Email:</label>
-                        <input
-                            required
-                            type="email"
-                            id="email"
-                            onChange={(e) => setUser({ ...user, email: e.target.value })}
-                            value={user.email}
-                            disabled={!allowEdit}
-                        />
-                    </div>
-                    <div className="profile_form_field">
-                        <label htmlFor="addres">Addres: </label>
-                        <input
-                            type="text"
-                            id="addres"
-                            onChange={(e) => setUser({ ...user, address: e.target.value })}
-                            value={user.address}
-                            disabled={!allowEdit}
-                        />
-                    </div>
+                    <FormField
+                        value={user.first_name as string}
+                        required={true}
+                        allowEdit={!allowEdit}
+                        minLength={1}
+                        maxLength={30}
+                        id="first_name"
+                        handleOnChange={handleOnChange}
+                        type={"text"}
+                    />
+                    <FormField
+                        value={user.last_name as string}
+                        required={true}
+                        allowEdit={!allowEdit}
+                        minLength={1}
+                        maxLength={30}
+                        id="last_name"
+                        handleOnChange={handleOnChange}
+                        type={"text"}
+                    />
+                    <FormField
+                        value={user.email as string}
+                        required={true}
+                        allowEdit={!allowEdit}
+                        id="email"
+                        handleOnChange={handleOnChange}
+                        type={"text"}
+                    />
+                    <FormField
+                        value={user.address as string}
+                        required={false}
+                        allowEdit={!allowEdit}
+                        id="address"
+                        handleOnChange={handleOnChange}
+                        type={"text"}
+                    />
                     <div className='profile_buttons'>
-                        {!allowEdit && <button className="profile_button" onClick={handleEdit}> Изменить профиль </button>}
-                        {allowEdit && <button className="profile_button" type="submit" onClick={handleSubmit}> Сохранить изменения профиля </button>}
+                        {!allowEdit && <button className="profile_button" onClick={handleEdit}> Edit profile </button>}
+                        {allowEdit && <button className="profile_button" type="submit" onClick={handleSubmit}> Save profile changing</button>}
                     </div>
                 </form>
             </div >
