@@ -16,9 +16,9 @@ const ProfilePage = () => {
     }, []);
 
     return (
-        <div>
+        <>
             <ProfileForm />
-        </div>
+        </>
     );
 }
 
