@@ -69,7 +69,7 @@ export const getUserData = async (req: Request, res: Response) => {
 }
 
 
-export const editUserData = async (req: Request, res: Response) => {
+export const editUserData = async (req: Request, res: Response): Promise<void>  => {
     const user_id = req.params.user_id;
     const user_data = req.body.user;
 
@@ -91,7 +91,8 @@ export const editUserData = async (req: Request, res: Response) => {
     }
     const edited_user = await updateUser(user_id, user_data);
     if (!edited_user) {
-        return res.status(400).json({ message: "Unable to find user with this credentials" });
+        res.status(400).json({ message: "Unable to find user with this credentials" });
+        return;
     }
     res.status(200).json({ user: edited_user })
 }
