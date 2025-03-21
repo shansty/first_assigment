@@ -103,7 +103,7 @@ export const signIn = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     }
 }
 
-export const getUserData = async (user_id: string, token: string, navigate:NavigateFunction) => {
+export const getUserData = async (user_id: string, token: string) => {
     try {
         const response = await axios.get(`${USER_URL}/${user_id}`,
             {
@@ -117,7 +117,6 @@ export const getUserData = async (user_id: string, token: string, navigate:Navig
     } catch (err: any) {
         if (err.response.data) {
             window.alert(` ${err.response.data.message}`);
-            navigate(0)
         } else {
             window.alert(`Error: ${err}`);
         }

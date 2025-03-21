@@ -32,7 +32,7 @@ const ProfilePage = () => {
     }, [])
 
     const setUserDataFromServer = async () => {
-        const data = await getUserData(user_id as string, token, navigate);
+        const data = await getUserData(user_id as string, token);
         if (data) {
             setUser(data)
         }

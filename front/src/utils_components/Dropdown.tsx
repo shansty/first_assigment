@@ -10,7 +10,6 @@ const HeaderDropdown: React.FC = () => {
     const [userId, setUserId] = useState<string>()
     const [userName, setUserName] = useState<string>()
     const token = getToken();
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (token) {
@@ -28,7 +27,7 @@ const HeaderDropdown: React.FC = () => {
 
 
     const getFullNameData = async () => {
-        const userData = await getUserData(userId as string, token as string, navigate)
+        const userData = await getUserData(userId as string, token as string)
         if (userData) {
             let fullName = `${userData.first_name} ${userData.last_name}`
             setUserName(fullName)
