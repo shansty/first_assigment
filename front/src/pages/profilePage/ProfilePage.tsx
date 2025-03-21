@@ -18,8 +18,8 @@ const ProfilePage = () => {
 
     const [user, setUser] = useState(empty_user_data);
     const navigate = useNavigate();
-    let token = getToken() as string;
-    const user_id = getIDFromToken(token);
+    let token = getToken();
+    const user_id = token ? getIDFromToken(token) : undefined;
 
     useEffect(() => {
         if (!token) {
@@ -32,10 +32,10 @@ const ProfilePage = () => {
     }, [])
 
     const setUserDataFromServer = async () => {
-        const data = await getUserData(user_id as string, token);
+        const data = await getUserData(user_id as string, token as string);
         if (data) {
             setUser(data)
-        }
+        } 
     }
 
     return (

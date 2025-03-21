@@ -10,7 +10,7 @@ interface ProfileFormProps {
     user: TypeUser,
     setUser: React.Dispatch<React.SetStateAction<TypeUser>>,
     user_id: string | undefined,
-    token: string
+    token: string | null
 }
 
 const ProfileForm:React.FC<ProfileFormProps> = ({ user, setUser, user_id, token }) => {
@@ -34,7 +34,7 @@ const ProfileForm:React.FC<ProfileFormProps> = ({ user, setUser, user_id, token 
 
     const handleSubmit = async () => {
         setAllowEdit(false);
-        await editUserData(user, user_id as string, token)
+        await editUserData(user, user_id as string, token as string)
         navigate(0)
     }
 
