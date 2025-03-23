@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { TypeUser } from '../../types';
 import { signIn, signUp } from '../../axios';
-import { getUserIdAndNavigateToProfile } from '../../utils';
+import { getUserIdAndNavigateToMainPage } from '../../utils';
 import FormField from '../../utils_components/FormField';
 import NonRegistredField from './NonRegistredField';
 import './authPage.css'
@@ -22,17 +22,17 @@ const AuthPage: React.FC = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        getUserIdAndNavigateToProfile(navigate);
+        getUserIdAndNavigateToMainPage(navigate);
     }, [])
 
     const login = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         await signIn(e, user)
-        getUserIdAndNavigateToProfile(navigate);
+        getUserIdAndNavigateToMainPage(navigate);
     }
 
     const register = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         await signUp(e, user)
-        getUserIdAndNavigateToProfile(navigate)
+        getUserIdAndNavigateToMainPage(navigate)
     }
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -28,13 +28,12 @@ export function getToken(): string | null {
     return token;
 }
 
-export const getUserIdAndNavigateToProfile = (navigate: NavigateFunction): string | void => {
+export const getUserIdAndNavigateToMainPage = (navigate: NavigateFunction): string | void => {
     const token = getToken() as string;
     if (!token) {
         return;
     }
     const user_id = getIDFromToken(token);
-    console.dir({ user_id })
-    navigate(`/profile`)
+    navigate(`/`)
 }
 

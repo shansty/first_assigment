@@ -43,7 +43,11 @@ const HeaderDropdown: React.FC = () => {
             </button>
             <div className="dropdown-content">
                 {userId ?
-                    <a href={`/profile`}>Profile</a>
+                    <>
+                        <a href={`/profile`}>Profile</a>
+                        <a href={`/card`}>Card</a>
+                        <a href={`/order`}>Orders</a>
+                    </>
                     :
                     <>
                         <a href="/login">Sign In</a>
