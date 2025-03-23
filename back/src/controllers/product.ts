@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { getProductsByQuery, getCategoriesByQuery } from './utils';
-import Category from '../models/category';
 import { IProduct } from '../models/product';
 
 

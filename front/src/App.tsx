@@ -8,6 +8,7 @@ import NotFoundPage from './pages/notFoundPage/NotFoundPage';
 import ProfilePage from './pages/profilePage/ProfilePage';
 import { HelmetProvider } from 'react-helmet-async';
 import { AppProvider } from './context/AppContext';
+import AuthPage from './pages/authPage/AuthPage';
 import './App.css';
 
 const App: React.FC = () => {
@@ -23,6 +24,7 @@ const App: React.FC = () => {
               <Route path='/:category' element={<MainPage />} />
               <Route path='/product_id/:product_id' element={<ProductPage />} />
               <Route path='/profile' element={<ProfilePage />} />
+              <Route path='/login' element={<AuthPage />} />
               <Route path='/404' element={<NotFoundPage />} />
             </Routes>
           </BrowserRouter>
