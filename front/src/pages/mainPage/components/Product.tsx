@@ -20,7 +20,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
         }
     }, [])
 
-    const handleAddToCard = () => {
+    const handleAddToCart = () => {
         //WRITE THE LOGIC
     }
 
@@ -34,7 +34,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
                         <p className='product_description'>{product.description}</p>
                         <p className='product_price'>Price: ${product.price}</p>
                         {isRegistered && 
-                        <button className="add_to_card_btn" onClick={handleAddToCard}>Add to card</button>}
+                        <button className="add_to_cart_btn" onClick={handleAddToCart}>Add to cart</button>}
                     </div>
                 </Link>
                 :

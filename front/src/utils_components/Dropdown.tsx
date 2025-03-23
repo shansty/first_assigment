@@ -45,7 +45,7 @@ const HeaderDropdown: React.FC = () => {
                 {userId ?
                     <>
                         <a href={`/profile`}>Profile</a>
-                        <a href={`/card`}>Card</a>
+                        <a href={`/cart`}>Cart</a>
                         <a href={`/order`}>Orders</a>
                     </>
                     :

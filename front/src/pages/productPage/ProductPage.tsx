@@ -27,7 +27,7 @@ const ProductPage = () => {
         getProductData(product_id as string, setProduct);
     }, [product_id])
 
-    const handleAddToCard = () => {
+    const handleAddToCart = () => {
         //WRITE THE LOGIC
     }
 
@@ -45,7 +45,7 @@ const ProductPage = () => {
                         <p className='card_product_description'>{product.description}</p>
                         <p className='card_product_price'>{product.price}</p>
                         {isRegistered &&
-                            <button className="add_to_card_btn" onClick={handleAddToCard}>Add to card</button>}
+                            <button className="add_to_cart_btn" onClick={handleAddToCart}>Add to cart</button>}
                     </div>
                 </div >
             </BasePageLayout>

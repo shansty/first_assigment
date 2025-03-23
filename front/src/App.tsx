@@ -9,7 +9,7 @@ import ProfilePage from './pages/profilePage/ProfilePage';
 import { HelmetProvider } from 'react-helmet-async';
 import { AppProvider } from './context/AppContext';
 import AuthPage from './pages/authPage/AuthPage';
-import CardPage from './pages/cardPage/CardPage';
+import CartPage from './pages/cartPage/CartPage';
 import OrderPage from './pages/orderPage/OrderPage';
 import './App.css';
 
@@ -26,7 +26,7 @@ const App: React.FC = () => {
               <Route path='/:category' element={<MainPage />} />
               <Route path='/product_id/:product_id' element={<ProductPage />} />
               <Route path='/profile' element={<ProfilePage />} />
-              <Route path='/card' element={<CardPage />} />
+              <Route path='/cart' element={<CartPage />} />
               <Route path='/order' element={<OrderPage />} />
               <Route path='/login' element={<AuthPage />} />
               <Route path='/404' element={<NotFoundPage />} />
