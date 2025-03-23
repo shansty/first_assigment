@@ -4,6 +4,7 @@ const { Schema, model } = mongoose;
 export interface IOrder {
     _id?: Types.ObjectId;
     cart_items: Types.ObjectId[];
+    user_id: Types.ObjectId;
     status: "Processing" | "Shipped" | "Completed" | "Cancelled";
     total_amount: number; 
     total_price: number; 
@@ -13,6 +14,7 @@ const orderSchema = new Schema<IOrder>(
     {
         _id: { type: Schema.Types.ObjectId, auto: true },
         cart_items: [{ type: Schema.Types.ObjectId, ref: "CartItem", required: true }], 
+        user_id: [{ type: Schema.Types.ObjectId, ref: "User", required: true }], 
         status: {
             type: String,
             enum: ["Processing", "Shipped", "Completed", "Cancelled"], 
@@ -26,6 +28,6 @@ const orderSchema = new Schema<IOrder>(
     }
 );
 
-const Order = model<IOrder>("Order", orderSchema);
+const Order = model<IOrder>("Order", orderSchema); 
 
 export default Order;

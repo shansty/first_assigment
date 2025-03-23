@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { TypeProduct } from '../../../types';
-import { getToken } from '../../../utils';
+import { getIDFromToken, getToken } from '../../../utils';
+import { addProductToCart } from '../../../axios';
 
 interface ProductProps {
     product: TypeProduct;
@@ -11,6 +12,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
 
     const [isRegistered, setIsRegistered] = useState<boolean>();
     const token = getToken();
+    const user_id = token ? getIDFromToken(token) : ""
 
     useEffect(() => {
         if (token) {
@@ -20,8 +22,8 @@ const Product: React.FC<ProductProps> = ({ product }) => {
         }
     }, [])
 
-    const handleAddToCart = () => {
-        //WRITE THE LOGIC
+    const handleAddToCart = async() => {
+        await addProductToCart(product, user_id, token as string)
     }
 
     return (

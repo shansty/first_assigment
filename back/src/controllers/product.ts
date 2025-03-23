@@ -23,9 +23,7 @@ export const getProductsByCategory = async (req: Request, res: Response) => {
 export const getProductData = async (req: Request, res: Response) => {
     try {
         let product_id = +req.params.id;
-        console.log(product_id);
         const product = await getProductsByProductId(product_id);
-        console.log(product[0])
         res.status(200).json({product: product[0]})
     } catch (error) {
         console.log(`Error ${error}`)

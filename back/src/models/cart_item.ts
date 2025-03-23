@@ -3,7 +3,8 @@ const { Schema, model } = mongoose;
 
 export interface ICartItem {
     _id?: Types.ObjectId;
-    product_id: Types.ObjectId; 
+    product_id: Types.ObjectId;
+    user_id: Types.ObjectId;  
     name: string; 
     quantity: number; 
     price: number; 
@@ -12,6 +13,7 @@ export interface ICartItem {
 const cartItemSchema = new Schema<ICartItem>(
     {
         _id: { type: Schema.Types.ObjectId, auto: true },
+        user_id: { type: Schema.Types.ObjectId, ref: "User", required: true }, 
         product_id: { type: Schema.Types.ObjectId, ref: "Product", required: true }, 
         name: { type: String, required: true },
         quantity: { type: Number, required: true, min: 1 }, 

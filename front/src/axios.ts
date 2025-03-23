@@ -2,7 +2,7 @@ import axios from "axios";
 import { TypeProduct, TypeUser } from "./types";
 import { Navigate, NavigateFunction, useNavigate } from "react-router-dom";
 import { formatQuery } from "./utils";
-import { CATEGORY_URL, PRODUCT_URL, PRODUCT_SEARCH_URL, PRODUCT_ID_URL, USER_URL, USER_LOGIN_URL } from "./configs/axios_urls";
+import { CATEGORY_URL, PRODUCT_URL, PRODUCT_SEARCH_URL, PRODUCT_ID_URL, USER_URL, USER_LOGIN_URL, CART_URL } from "./configs/axios_urls";
 
 export const getCategoriesNames = async () => {
 
@@ -142,3 +142,23 @@ export const editUserData = async (user: TypeUser, user_id: string, token: strin
         }
     }
 }
+
+export const addProductToCart = async (product: TypeProduct, user_id: string, token: string) => {
+    try {
+        console.dir({product, user_id})
+        await axios.post(CART_URL, { product, user_id  },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+    } catch (err: any) {
+        if (err.response.data) {
+            window.alert(` ${err.response.data.message}`);
+        } else {
+            window.alert(`Error: ${err}`);
+        }
+    }
+}
+
