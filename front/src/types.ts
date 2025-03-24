@@ -16,3 +16,13 @@ export type TypeUser = {
     last_name?: string;
     address?: string
 };
+
+export type TypeCartItem = {
+    _id?: string;
+    product_id?: string;
+    user_id?: string;  
+    name?: string; 
+    quantity?: number; 
+    price?: number; 
+};
+
