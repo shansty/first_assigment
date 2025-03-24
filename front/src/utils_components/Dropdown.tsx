@@ -46,7 +46,7 @@ const HeaderDropdown: React.FC = () => {
                     <>
                         <a href={`/profile`}>Profile</a>
                         <a href={`/cart`}>Cart</a>
-                        <a href={`/order`}>Orders</a>
+                        <a href={`/order_history`}>Order History</a>
                     </>
                     :
                     <>

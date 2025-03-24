@@ -1,15 +1,15 @@
-import React, { useReducer } from 'react';
-import { TypeCartItem } from '../../types';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { getCartItems } from '../../axios';
-import { getToken, getIDFromToken } from '../../utils';
+import { getToken, getIDFromToken, getTotalPrice } from '../../utils';
 import CartItem from './CartItem';
+import { useAppContext } from '../../context/AppContext';
 import './cartPage.css'
 
 const CartPage: React.FC = () => {
-    const [cartItems, setCartItems] = useState<TypeCartItem[]>();
     const [totalPrice, setTotalPrice] = useState<number>();
     const [isChanged, setIsChanged] = useState<boolean>(false);
+    const { cartItems, setCartItems } = useAppContext();
     const token = getToken();
     const user_id = token ? getIDFromToken(token) : ""
 
@@ -23,12 +23,12 @@ const CartPage: React.FC = () => {
         if (isChanged) {
             getCartItemsAndSet();
             setIsChanged(false);
-            setTotalPrice(getTotalPrice())
+            setTotalPrice(getTotalPrice(cartItems))
         }
     }, [isChanged]);
 
     useEffect(() => {
-        setTotalPrice(getTotalPrice())
+        setTotalPrice(getTotalPrice(cartItems))
     }, [cartItems])
 
 
@@ -38,15 +38,6 @@ const CartPage: React.FC = () => {
             setCartItems(cart_items)
         }
     }
-
-    const getTotalPrice = (): number => {
-        if (!cartItems || cartItems.length === 0) return 0;
-        let total_price: number = 0;
-        cartItems.forEach(item => {
-            total_price += item.price ?? 0;
-        });
-        return parseFloat(total_price.toFixed(2));
-    };
 
 
     return (
@@ -58,7 +49,9 @@ const CartPage: React.FC = () => {
                             <CartItem key={cartItem._id} cartItem={cartItem} token={token} user_id={user_id} setIsChanged={setIsChanged} />
                         ))}
                         <p className='cart_item_total_price'>Total price: ${totalPrice}</p>
-                        <button className='confirm_order_btn'>Confirm the order</button>
+                        <button className='confirm_order_btn'>
+                            <Link to='/confirm_order' className='confirm_link'>Confirm the order</Link>
+                        </button>
                     </>
                 ) : (
                     <div className='empty_cart_msg'>Cart is empty</div>

@@ -11,3 +11,5 @@ export const USER_URL = `${process.env.REACT_APP_AXIOS_HOST}/user`
 export const USER_LOGIN_URL = `${process.env.REACT_APP_AXIOS_HOST}/user/login`
 
 export const CART_URL = `${process.env.REACT_APP_AXIOS_HOST}/cart`
+
+export const ORDER_URL = `${process.env.REACT_APP_AXIOS_HOST}/order`

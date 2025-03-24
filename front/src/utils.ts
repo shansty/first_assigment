@@ -1,5 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 import { NavigateFunction } from "react-router-dom";
+import { TypeCartItem } from "./types";
 
 interface ICustomJwtPayload {
     id: string;
@@ -37,3 +38,11 @@ export const getUserIdAndNavigateToMainPage = (navigate: NavigateFunction): stri
     navigate(`/`)
 }
 
+export const getTotalPrice = (cartItems:TypeCartItem[]): number => {
+    if (!cartItems || cartItems.length === 0) return 0;
+    let total_price: number = 0;
+    cartItems.forEach(item => {
+        total_price += item.price ?? 0;
+    });
+    return parseFloat(total_price.toFixed(2));
+};

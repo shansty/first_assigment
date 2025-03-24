@@ -72,3 +72,7 @@
 .confirm_order_btn:hover{
     background-color: #2c20b7;
 }
+
+.confirm_link{
+    color: white;
+}
