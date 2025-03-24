@@ -207,6 +207,7 @@ export const updateCartItemQuantity = async (user_id: string, operation:string, 
 
 export const createOrder = async (user_id: string, deliveryMethod: string, paymentMethod: string, address: string, token: string) => {
     try {
+        console.dir({user_id, deliveryMethod, paymentMethod, address})
         const response = await axios.post(ORDER_URL, {user_id, deliveryMethod, paymentMethod, address},
             {
                 headers: {
