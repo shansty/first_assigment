@@ -14,7 +14,7 @@ export const addToCart = async (req: Request, res: Response) => {
         let cartItem = await CartItem.findOne({ product_id: product_db._id, user_id: user_id });
         if (cartItem) {
             cartItem.quantity++;
-            cartItem.price = cartItem.price + product_db.price;
+            cartItem.price = parseFloat((cartItem.price + product_db.price).toFixed(2));
             await cartItem.save();
         } else {
             await CartItem.create({
@@ -75,11 +75,11 @@ export const updateCartItemQuantity = async (req: Request, res: Response) => {
 
         if (operation === increase_operation) {
             cart_item.quantity++;
-            cart_item.price = cart_item.price + product?.price;
+            cart_item.price = parseFloat((cart_item.price + product.price).toFixed(2));
             await cart_item.save();
         } else if (operation === decrease_operation && cart_item.quantity > 1) {
             cart_item.quantity--;
-            cart_item.price = cart_item.price - product?.price;
+            cart_item.price = parseFloat((cart_item.price - product.price).toFixed(2));
             await cart_item.save();
         } else {
             await cart_item.deleteOne();

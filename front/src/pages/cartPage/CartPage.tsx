@@ -45,7 +45,7 @@ const CartPage: React.FC = () => {
         cartItems.forEach(item => {
             total_price += item.price ?? 0;
         });
-        return total_price;
+        return parseFloat(total_price.toFixed(2));
     };
 
 
