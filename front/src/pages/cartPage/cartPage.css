@@ -51,3 +51,24 @@
     height: 90vh;
     justify-content: center;
 }
+
+.cart_item_total_price{
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #27ae60;
+}
+.confirm_order_btn{
+    font-size: 20px;
+    background-color: #170f78;
+    margin-bottom: 35px;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+}
+
+.confirm_order_btn:hover{
+    background-color: #2c20b7;
+}
