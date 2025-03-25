@@ -36,11 +36,7 @@ export const findCartItemByQuery = async (query: Object) => {
     return cart_items;
 }
 
-export const createCartItem = async (product: (Document<unknown, {}, IProduct> & IProduct & {
-    _id: Types.ObjectId;
-} & {
-    __v: number;
-}), user_id: ObjectId) => {
+export const createCartItem = async (product: (Document<unknown, {}, IProduct> & IProduct), user_id: ObjectId) => {
     await CartItem.create({
         product_id: product._id,
         user_id: user_id as ObjectId,
@@ -94,15 +90,7 @@ export const createOrderEntity = async (user_id: string, quantity: number, sum: 
     return new_order;
 }
 
-export const createOrderItem = async (newOrder: Document<unknown, {}, IOrder> & IOrder & Required<{
-    _id: Types.ObjectId;
-}> & {
-    __v: number;
-}, cart_item: Document<unknown, {}, ICartItem> & ICartItem & Required<{
-    _id: Types.ObjectId;
-}> & {
-    __v: number;
-}) => {
+export const createOrderItem = async (newOrder: Document<unknown, {}, IOrder> & IOrder, cart_item: Document<unknown, {}, ICartItem> & ICartItem ) => {
     const orderItem = await OrderItem.create({
         order_id: newOrder._id,
         name: cart_item.name,
@@ -117,34 +105,23 @@ export const getOrdersByQuery = async (query: Object) => {
     return orders;
 }
 
+export const getOrderWithOrderItems = async (query: Object) => {
+    const order = await Order.findOne(query).populate("order_items", "name price quantity");
+    return order;
+}
+
 export const generateToken = (id: Types.ObjectId) => {
     const secret = process.env.SECRET_KEY as string;
     return jwt.sign({ id }, secret, { expiresIn: '60h' });
 }
 
-export const increaseCartItemQuantityAndPrice = async (cartItem: (Document<unknown, {}, ICartItem> & ICartItem & Required<{
-    _id: Types.ObjectId;
-}> & {
-    __v: number;
-}), product: (Document<unknown, {}, IProduct> & IProduct & {
-    _id: Types.ObjectId;
-} & {
-    __v: number;
-})) => {
+export const increaseCartItemQuantityAndPrice = async (cartItem: (Document<unknown, {}, ICartItem> & ICartItem) , product: (Document<unknown, {}, IProduct> & IProduct)) => {
     cartItem.quantity++;
     cartItem.price = parseFloat((cartItem.price + product.price).toFixed(2));
     await cartItem.save();
 }
 
-export const decreaseCartItemQuantityAndPrice = async (cartItem: (Document<unknown, {}, ICartItem> & ICartItem & Required<{
-    _id: Types.ObjectId;
-}> & {
-    __v: number;
-}), product: (Document<unknown, {}, IProduct> & IProduct & {
-    _id: Types.ObjectId;
-} & {
-    __v: number;
-})) => {
+export const decreaseCartItemQuantityAndPrice = async (cartItem: (Document<unknown> & ICartItem), product: (Document<unknown, {}, IProduct> & IProduct )) => {
     cartItem.quantity--;
     cartItem.price = parseFloat((cartItem.price - product.price).toFixed(2));
     await cartItem.save();

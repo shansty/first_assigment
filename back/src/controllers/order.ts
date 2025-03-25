@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
-import Order from "../models/order";
-import { findCartItemByQuery, createOrderEntity, createOrderItem, deleteCartItemsByQuery, getOrdersByQuery } from "./utils";
+import { findCartItemByQuery, createOrderEntity, createOrderItem, deleteCartItemsByQuery, getOrdersByQuery, getOrderWithOrderItems } from "./utils";
 
 export const createOrder = async (req: Request, res: Response) => {
     try {
@@ -53,11 +52,12 @@ export const getUserOrders = async (req: Request, res: Response) => {
     }
 };
 
+
 export const getOrder = async (req: Request, res: Response) => {
     try {
         const user_id = req.user._id; 
         const order_id = req.params.order_id
-        const order = await Order.findOne({ _id: order_id, user_id: user_id }).populate("order_items", "name price quantity");
+        const order = await getOrderWithOrderItems({ _id: order_id, user_id: user_id });
         if (!order) {
             res.status(400).json({ message: "Order not found" });
             return;
