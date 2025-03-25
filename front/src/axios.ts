@@ -144,6 +144,7 @@ export const editUserData = async (user: TypeUser, user_id: string, token: strin
 
 export const addProductToCart = async (product: TypeProduct, user_id: string, token: string) => {
     try {
+        console.dir({product})
         await axios.post(CART_URL, { product, user_id },
             {
                 headers: {

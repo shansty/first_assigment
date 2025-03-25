@@ -5,6 +5,11 @@ import { getProductByQuery, getCartItemByQuery, increaseCartItemQuantityAndPrice
 export const addToCart = async (req: Request, res: Response) => {
     try {
         const { product, user_id } = req.body;
+        const user_id_from_token = req.user.id;
+        if (user_id !== user_id_from_token) {
+            res.status(404).json({ message: "Incorrect user data" });
+            return;
+        }
         const product_db = await getProductByQuery({ id: product.id });
         if (!product_db) {
             res.status(404).json({ message: "Product not found" });
@@ -44,7 +49,13 @@ export const updateCartItemQuantity = async (req: Request, res: Response) => {
         const increase_operation = "increase";
         const decrease_operation = "decrease";
         const user_id = req.params.user_id;
+        const user_id_from_token = req.user.id;
         const { operation, cart_item_id } = req.body;
+
+        if (user_id !== user_id_from_token) {
+            res.status(404).json({ message: "Incorrect user data" });
+            return;
+        }
 
         if (!user_id) {
             res.status(400).json({ message: "User with such credentials not found" });
