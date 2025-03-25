@@ -1,17 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import MainContent from './components/MainContent';
-import { TypeProduct } from '../../types';
+import { useAppContext } from '../../context/AppContext';
 import BasePageLayout from '../../layouts/BasePageLayout';
 import './mainPage.css'
 
 const MainPage: React.FC = () => {
-    const [searchResults, setSearchResults] = useState<TypeProduct[]>([]);
-    const [category, setCategory] = useState<string>();
-    const [isMenuOpen, setIsMenuOpen] = useState(true);
-
-    const handleResultsUpdate = (newResults: TypeProduct[]) => {
-        setSearchResults(newResults);
-    };
+    const {searchResults,  category} = useAppContext()
+    
 
     return (
         <BasePageLayout>
