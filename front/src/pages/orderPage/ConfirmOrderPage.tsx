@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { getToken, getIDFromToken, getTotalPrice } from '../../utils';
+import { useNavigate } from 'react-router-dom';
 import { createOrder, getUserData } from '../../axios';
 import { useAppContext } from '../../context/AppContext';
 import FormField from '../../utils_components/FormField';
+import ConfirmationModal from '../../utils_components/ConfirmationModal';
 import { useEffect } from 'react';
 import './orderPage.css'
 
@@ -14,6 +16,8 @@ const ConfirmOrderPage = () => {
     const [deliveryMethod, setDeliveryMethod] = useState<string>("");
     const [address, setAddress] = useState<string>("");
     const [totalPrice, setTotalPrice] = useState<number>();
+    const [showModal, setShowModal] = useState(false);
+    const navigate = useNavigate();
 
 
     const { cartItems } = useAppContext();
@@ -22,14 +26,16 @@ const ConfirmOrderPage = () => {
         if (token) {
             setTotalPrice(getTotalPrice(cartItems))
             getUserAdressIfExists();
+        } else {
+            navigate('/')
         }
     }, [])
 
-    const getUserAdressIfExists = async() => {
+    const getUserAdressIfExists = async () => {
         const user = await getUserData(user_id, token as string);
-        if(user) {
+        if (user) {
             setAddress(user.address as string)
-        } 
+        }
     }
 
     const handleSubmit = async () => {
@@ -37,7 +43,10 @@ const ConfirmOrderPage = () => {
             alert("Please provide an address for door-to-door delivery.");
             return;
         }
-        await createOrder(user_id, deliveryMethod, paymentMethod, address, token as string)
+        const result = await createOrder(user_id, deliveryMethod, paymentMethod, address, token as string);
+        if (result) {
+            setShowModal(true);
+        }
     }
 
     const handlePaymentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,6 +56,11 @@ const ConfirmOrderPage = () => {
     const handleDeliveryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setDeliveryMethod(e.target.id);
     }
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+        navigate('/order_history');
+    };
 
     return (
         <div className='confirm_order_container'>
@@ -80,8 +94,12 @@ const ConfirmOrderPage = () => {
                         required />
                 )}
             </div>
-
-            <button onClick={handleSubmit}>Submit order</button>
+            <button className='submit_order_btn' onClick={handleSubmit}>Submit order</button>
+            {showModal && (<ConfirmationModal
+                title='Order Confirmed!'
+                message='Your order has been successfully submitted.'
+                onClose={handleCloseModal}
+            />)}
         </div>
     );
 }

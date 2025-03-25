@@ -1,11 +1,59 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getToken, getIDFromToken } from '../../utils';
+import { getUserOrders } from '../../axios';
+import { Link, useNavigate } from 'react-router-dom';
+import { TypeOrder } from '../../types';
+import './orderPage.css';
 
-const OrderHistoryPage = () => {
+const OrderHistoryPage: React.FC = () => {
+    const [orders, setOrders] = useState<TypeOrder[]>([]);
+    const token = getToken();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!token) {
+            navigate('/');
+            return;
+        }
+        getOrders();
+    }, []);
+
+    const getOrders = async () => {
+        const userOrders = await getUserOrders(token as string);
+        if (userOrders) {
+            setOrders(userOrders)
+        } else {
+            setOrders([])
+        }
+    };
+
     return (
-        <div>
-            Here will be the orders history
+        <div className='order_history_container'>
+            <h2 className='order_history_page_title'>Your Order History</h2>
+            {orders && orders.length === 0 ? (
+                <p>No orders found.</p>
+            ) : (
+                <ul className='orders_list'>
+                    {orders.map((order) => (
+                        <li key={order._id} className='order_item'>
+                            <div className='order_data'>
+                                <div>
+                                    <p><strong>Status:</strong> {order.status}</p>
+                                    <p><strong>Total Price:</strong> ${order.total_price}</p>
+                                    <p><strong>Payment Method:</strong> {order.payment_method}</p>
+                                    <p><strong>Delivery Method:</strong> {order.delivery?.method}</p>
+                                    {order.delivery?.method === "Door to door" && (
+                                        <p><strong>Address:</strong> {order.delivery.address}</p>
+                                    )}
+                                </div>
+                                <Link className='order_details_link' to={`/order_history/${order._id}`}> View order details</Link>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     );
-}
+};
 
 export default OrderHistoryPage;

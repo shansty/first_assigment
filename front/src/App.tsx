@@ -12,6 +12,7 @@ import AuthPage from './pages/authPage/AuthPage';
 import CartPage from './pages/cartPage/CartPage';
 import OrderHistoryPage from './pages/orderPage/OrderHistoryPage';
 import ConfirmOrderPage from './pages/orderPage/ConfirmOrderPage';
+import OrderDetailsPage from './pages/orderPage/OrderDetailsPage';
 import './App.css';
 
 const App: React.FC = () => {
@@ -29,6 +30,7 @@ const App: React.FC = () => {
               <Route path='/profile' element={<ProfilePage />} />
               <Route path='/cart' element={<CartPage />} />
               <Route path='/order_history' element={<OrderHistoryPage />} />
+              <Route path='/order_history/:order_id' element={<OrderDetailsPage />} />
               <Route path='/confirm_order' element={<ConfirmOrderPage />} />
               <Route path='/login' element={<AuthPage />} />
               <Route path='/404' element={<NotFoundPage />} />

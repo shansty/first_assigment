@@ -3,7 +3,8 @@ const { Schema, model } = mongoose;
 
 export interface IOrder {
     _id?: Types.ObjectId;
-    cart_items: Types.ObjectId[];
+    
+    order_items: Types.ObjectId[];
     user_id: Types.ObjectId;
     status: "Processing" | "Shipped" | "Completed" | "Cancelled";
     total_amount: number;
@@ -18,8 +19,8 @@ export interface IOrder {
 const orderSchema = new Schema<IOrder>(
     {
         _id: { type: Schema.Types.ObjectId, auto: true },
-        cart_items: [{ type: Schema.Types.ObjectId, ref: "CartItem", required: true }],
-        user_id: { type: Schema.Types.ObjectId, ref: "User", required: true }, // Fixed: should not be an array
+        order_items: [{ type: Schema.Types.ObjectId, ref: "OrderItem", required: true }],
+        user_id: { type: Schema.Types.ObjectId, ref: "User", required: true }, 
         status: {
             type: String,
             enum: ["Processing", "Shipped", "Completed", "Cancelled"],

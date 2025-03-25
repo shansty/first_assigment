@@ -43,7 +43,7 @@
     margin-bottom: 20px;
 }
 
-button {
+.submit_order_btn {
     padding: 10px 20px;
     font-size: 16px;
     background-color: #170f78;
@@ -53,7 +53,7 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+.submit_order_btn:hover {
     background-color: #2c20b7;
 }
 
@@ -75,4 +75,133 @@ button:hover {
     width: 15px;
     height: 15px;
     cursor: pointer;
+}
+
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal_content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.modal_content h2 {
+    margin-bottom: 10px;
+    color: rgb(44, 39, 39);
+}
+
+.modal_content button {
+    padding: 8px 16px;
+    border: none;
+    background: #170f78;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.modal_content button:hover {
+    background: #2c20b7;
+}
+
+
+.order_history_container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 50px;
+    text-align: center;
+}
+
+.order_history_page_title {
+    color: #16172f;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.order_item {
+    background: #c9c9cf;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+    text-align: left;
+}
+
+.order_item p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.order_item strong {
+    color: #0c1134;
+}
+
+.order_data{
+    display: grid;
+    grid-template-columns: 3fr 0.5fr ;
+}
+
+
+.order_details_link {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    color: #0c1134;
+    border-radius: 6px;
+}
+
+.order_details_link:hover {
+    transform: scale(1.03);
+}
+
+
+.order_details_container {
+    padding-top: 50px;
+    max-width: 800px;
+    min-height: 600px;
+    margin: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+}
+
+.order_detail_title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    margin-top: 30px;
+    text-align: center;
+    color: #2b1b5d;
+}
+
+
+.order_details_container p {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.order_details_container strong {
+    font-weight: bold;
+    color: #18114e;
+    margin-right: 5px;
+}
+
+.order_items_list{
+    margin-bottom: 20px;
 }
