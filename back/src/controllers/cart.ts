@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getProductByQuery, getCartItemByQuery, increaseCartItemQuantityAndPrice, decreaseCartItemQuantityAndPrice, createCartItem, findCartItemByQuery } from "./utils";
+import { getProductByQuery, getCartItemByQuery, increaseCartItemQuantityAndPrice, decreaseCartItemQuantityAndPrice, createCartItem, findCartItemByQuery, saveCartItem } from "./utils";
 
 
 export const addToCart = async (req: Request, res: Response) => {
@@ -13,7 +13,7 @@ export const addToCart = async (req: Request, res: Response) => {
         }
         let cartItem = await getCartItemByQuery({ product_id: product_db._id, user_id: user_id });
         if (cartItem) {
-            await increaseCartItemQuantityAndPrice(cartItem, product_db)
+            await saveCartItem(increaseCartItemQuantityAndPrice(cartItem, product_db));
         } else {
             await createCartItem(product_db, user_id)
         }
@@ -72,9 +72,9 @@ export const updateCartItemQuantity = async (req: Request, res: Response) => {
         }
 
         if (operation === increase_operation) {
-            increaseCartItemQuantityAndPrice(cart_item, product)
+            await saveCartItem(increaseCartItemQuantityAndPrice(cart_item, product))
         } else if (operation === decrease_operation && cart_item.quantity > 1) {
-            decreaseCartItemQuantityAndPrice(cart_item, product)
+            await saveCartItem(decreaseCartItemQuantityAndPrice(cart_item, product))
         } else {
             await cart_item.deleteOne();
         }

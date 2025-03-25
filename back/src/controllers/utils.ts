@@ -115,15 +115,19 @@ export const generateToken = (id: Types.ObjectId) => {
     return jwt.sign({ id }, secret, { expiresIn: '60h' });
 }
 
-export const increaseCartItemQuantityAndPrice = async (cartItem: (Document<unknown, {}, ICartItem> & ICartItem) , product: (Document<unknown, {}, IProduct> & IProduct)) => {
+export const increaseCartItemQuantityAndPrice = (cartItem: (Document<unknown, {}, ICartItem> & ICartItem) , product: (Document<unknown, {}, IProduct> & IProduct)) => {
     cartItem.quantity++;
     cartItem.price = parseFloat((cartItem.price + product.price).toFixed(2));
-    await cartItem.save();
+    return cartItem;
 }
 
-export const decreaseCartItemQuantityAndPrice = async (cartItem: (Document<unknown> & ICartItem), product: (Document<unknown, {}, IProduct> & IProduct )) => {
+export const decreaseCartItemQuantityAndPrice = (cartItem: (Document<unknown> & ICartItem), product: (Document<unknown, {}, IProduct> & IProduct )) => {
     cartItem.quantity--;
     cartItem.price = parseFloat((cartItem.price - product.price).toFixed(2));
+    return cartItem;
+}
+
+export const saveCartItem = async(cartItem: (Document<unknown> & ICartItem)) => {
     await cartItem.save();
 }
 
