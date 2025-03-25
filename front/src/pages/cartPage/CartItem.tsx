@@ -1,6 +1,7 @@
 import React from 'react';
 import { TypeCartItem } from '../../types';
-import { updateCartItemQuantity } from '../../axios';
+import { increaseCartItem, decreaseCartItem } from '../../utils';
+import { useAppContext } from '../../context/AppContext';
 
 
 interface CartItemProps {
@@ -13,16 +14,15 @@ interface CartItemProps {
 
 const CartItem: React.FC<CartItemProps> = ({ cartItem, token, user_id, setIsChanged }) => {
 
-    const increase_operation = "increase";
-    const decrease_operation = "decrease";
+    const { cartItems, setCartItems } = useAppContext();
 
     const increaseQuantity = async () => {
-        await updateCartItemQuantity(user_id, increase_operation, cartItem._id as string, token as string)
+        increaseCartItem(cartItem, cartItems, setCartItems)
         setIsChanged(true)
     }
 
     const decreaseQuantity = async () => {
-        await updateCartItemQuantity(user_id, decrease_operation, cartItem._id as string, token as string)
+        decreaseCartItem(cartItem, cartItems, setCartItems)
         setIsChanged(true)
     }
 

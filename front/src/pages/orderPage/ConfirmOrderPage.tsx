@@ -20,7 +20,7 @@ const ConfirmOrderPage = () => {
     const navigate = useNavigate();
 
 
-    const { cartItems } = useAppContext();
+    const { cartItems, setCartItems } = useAppContext();
 
     useEffect(() => {
         if (token) {
@@ -43,9 +43,10 @@ const ConfirmOrderPage = () => {
             alert("Please provide an address for door-to-door delivery.");
             return;
         }
-        const result = await createOrder(user_id, deliveryMethod, paymentMethod, address, token as string);
+        const result = await createOrder(user_id, deliveryMethod, paymentMethod, address, token as string, cartItems);
         if (result) {
             setShowModal(true);
+            setCartItems([])
         }
     }
 

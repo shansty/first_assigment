@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { getProductData, addProductToCart } from '../../axios';
+import { useParams } from 'react-router-dom';
+import { getProductData } from '../../axios';
 import { TypeProduct } from '../../types';
 import { Helmet } from 'react-helmet-async';
 import BasePageLayout from '../../layouts/BasePageLayout';
-import { getToken, getIDFromToken } from '../../utils';
+import { getToken, getIDFromToken, addCartItem } from '../../utils';
+import { useAppContext } from '../../context/AppContext';
 import './productPage.css'
 
 
-const ProductPage = () => {
+const ProductPage: React.FC = () => {
 
     const { product_id } = useParams()
     const [product, setProduct] = useState<TypeProduct>({});
     const [isRegistered, setIsRegistered] = useState<boolean>();
+    const { cartItems, setCartItems } = useAppContext();
     const token = getToken();
     const user_id = token ? getIDFromToken(token) : "";
 
@@ -29,7 +31,7 @@ const ProductPage = () => {
     }, [product_id])
 
     const handleAddToCart = async () => {
-        await addProductToCart(product, user_id, token as string)
+        addCartItem(product, cartItems, setCartItems)
     }
 
     return (

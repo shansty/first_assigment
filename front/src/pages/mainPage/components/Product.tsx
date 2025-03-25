@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { TypeProduct } from '../../../types';
-import { getIDFromToken, getToken } from '../../../utils';
-import { addProductToCart } from '../../../axios';
+import { TypeCartItem, TypeProduct } from '../../../types';
+import { getIDFromToken, getToken, addCartItem } from '../../../utils';
+import { useAppContext } from '../../../context/AppContext';
 
 interface ProductProps {
     product: TypeProduct;
@@ -12,6 +12,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
 
     const [isRegistered, setIsRegistered] = useState<boolean>();
     const token = getToken();
+    const { cartItems, setCartItems } = useAppContext()
     const user_id = token ? getIDFromToken(token) : ""
 
     useEffect(() => {
@@ -23,8 +24,10 @@ const Product: React.FC<ProductProps> = ({ product }) => {
     }, [])
 
     const handleAddToCart = async () => {
-        await addProductToCart(product, user_id, token as string)
-    }
+        addCartItem(product, cartItems, setCartItems)
+    };
+    
+    
 
     return (
         <>

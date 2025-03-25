@@ -142,73 +142,10 @@ export const editUserData = async (user: TypeUser, user_id: string, token: strin
     }
 }
 
-export const addProductToCart = async (product: TypeProduct, user_id: string, token: string) => {
+
+export const createOrder = async (user_id: string, deliveryMethod: string, paymentMethod: string, address: string, token: string, cartItems: TypeCartItem[]) => {
     try {
-        console.dir({product})
-        await axios.post(CART_URL, { product, user_id },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-    } catch (err: any) {
-        if (err.response.data) {
-            window.alert(` ${err.response.data.message}`);
-        } else {
-            window.alert(`Error: ${err}`);
-        }
-    }
-}
-
-export const getCartItems = async (user_id: string, token: string) => {
-    try {
-        const response = await axios.get(`${CART_URL}/${user_id}`,
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-        const result: TypeCartItem[] = response.data.cart_items;
-        return result;
-    } catch (err: any) {
-        if (err.response.data) {
-            window.alert(` ${err.response.data.message}`);
-        } else {
-            window.alert(`Error: ${err}`);
-
-        }
-        return [];
-    }
-}
-
-export const updateCartItemQuantity = async (user_id: string, operation:string, cart_item_id: string, token: string) => {
-    try {
-        const response = await axios.patch(`${CART_URL}/${user_id}`, {operation, cart_item_id},
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-        const result: TypeCartItem = response.data.cart_item;
-        return result;
-    } catch (err: any) {
-        if (err.response.data) {
-            window.alert(` ${err.response.data.message}`);
-        } else {
-            window.alert(`Error: ${err}`);
-
-        }
-        return [];
-    }
-}
-
-
-export const createOrder = async (user_id: string, deliveryMethod: string, paymentMethod: string, address: string, token: string) => {
-    try {
-        const response = await axios.post(ORDER_URL, {user_id, deliveryMethod, paymentMethod, address},
+        const response = await axios.post(ORDER_URL, {user_id, deliveryMethod, paymentMethod, address, cartItems},
             {
                 headers: {
                     'Content-Type': 'application/json',

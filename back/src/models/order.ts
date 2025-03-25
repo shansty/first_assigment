@@ -1,10 +1,15 @@
 import mongoose, { Types } from "mongoose";
 const { Schema, model } = mongoose;
 
+export interface IOrderItem {
+    name: string;
+    price: number;
+    quantity: number;
+}
+
 export interface IOrder {
     _id?: Types.ObjectId;
-    
-    order_items: Types.ObjectId[];
+    order_items: IOrderItem[]; 
     user_id: Types.ObjectId;
     status: "Processing" | "Shipped" | "Completed" | "Cancelled";
     total_amount: number;
@@ -19,7 +24,13 @@ export interface IOrder {
 const orderSchema = new Schema<IOrder>(
     {
         _id: { type: Schema.Types.ObjectId, auto: true },
-        order_items: [{ type: Schema.Types.ObjectId, ref: "OrderItem", required: true }],
+        order_items: [
+            {
+                name: { type: String, required: true },
+                price: { type: Number, required: true, min: 0 },
+                quantity: { type: Number, required: true, min: 1 },
+            }
+        ],
         user_id: { type: Schema.Types.ObjectId, ref: "User", required: true }, 
         status: {
             type: String,
