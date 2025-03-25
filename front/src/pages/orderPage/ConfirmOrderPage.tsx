@@ -59,7 +59,7 @@ const ConfirmOrderPage = () => {
 
     const handleCloseModal = () => {
         setShowModal(false);
-        navigate('/order_history');
+        navigate('/');
     };
 
     return (
