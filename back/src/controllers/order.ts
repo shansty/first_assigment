@@ -10,10 +10,9 @@ export const createOrder = async (req: Request, res: Response) => {
             return;
         }
 
-        let sum = 0;
-        let quantity = 0;
-        cart_items.forEach(item => sum += item.price);
-        cart_items.forEach(item => quantity += item.quantity);
+        const sum = cart_items.reduce((total, item) => total + item.price, 0);
+        const quantity = cart_items.reduce((total, item) => total + item.quantity, 0);
+        
 
         if (deliveryMethod === "Door to door" && !address) {
             res.status(400).json({ message: "Address is required for door-to-door delivery" });

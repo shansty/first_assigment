@@ -5,11 +5,7 @@ import { getProductByQuery, getCartItemByQuery, increaseCartItemQuantityAndPrice
 export const addToCart = async (req: Request, res: Response) => {
     try {
         const { product, user_id } = req.body;
-        const user_id_from_token = req.user.id;
-        if (user_id !== user_id_from_token) {
-            res.status(404).json({ message: "Incorrect user data" });
-            return;
-        }
+
         const product_db = await getProductByQuery({ id: product.id });
         if (!product_db) {
             res.status(404).json({ message: "Product not found" });
