@@ -171,6 +171,7 @@
 
 .order_details_container {
     padding-top: 50px;
+    padding-bottom: 30px;
     max-width: 800px;
     min-height: 600px;
     margin: auto;
@@ -194,6 +195,7 @@
     padding: 10px;
     font-size: 18px;
     text-align: center;
+    
 }
 
 .order_details_container strong {
