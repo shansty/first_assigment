@@ -3,6 +3,7 @@ import { getToken, getIDFromToken } from '../../utils';
 import { getUserOrders } from '../../axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { TypeOrder } from '../../types';
+import OrderDetails from './OrderDetails';
 import './orderPage.css';
 
 const OrderHistoryPage: React.FC = () => {
@@ -37,15 +38,7 @@ const OrderHistoryPage: React.FC = () => {
                     {orders.map((order) => (
                         <li key={order._id} className='order_item'>
                             <div className='order_data'>
-                                <div>
-                                    <p><strong>Status:</strong> {order.status}</p>
-                                    <p><strong>Total Price:</strong> ${order.total_price}</p>
-                                    <p><strong>Payment Method:</strong> {order.payment_method}</p>
-                                    <p><strong>Delivery Method:</strong> {order.delivery?.method}</p>
-                                    {order.delivery?.method === "Door to door" && (
-                                        <p><strong>Address:</strong> {order.delivery.address}</p>
-                                    )}
-                                </div>
+                                <OrderDetails order={order}/>
                                 <Link className='order_details_link' to={`/order_history/${order._id}`}> View order details</Link>
                             </div>
                         </li>

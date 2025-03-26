@@ -5,6 +5,7 @@ import { createOrder, getUserData } from '../../axios';
 import { useAppContext } from '../../context/AppContext';
 import FormField from '../../utils_components/FormField';
 import ConfirmationModal from '../../utils_components/ConfirmationModal';
+import CartItemDetails from './CartItemDetails';
 import { useEffect } from 'react';
 import './orderPage.css'
 
@@ -68,10 +69,7 @@ const ConfirmOrderPage = () => {
             <div className='items_data'>
                 <h3>Your order:</h3>
                 <p className='order_section'>Product details:</p>
-                {cartItems.map((cartItem, index) => (
-                    <p className='item_data' key={index}>{cartItem.name} - {cartItem.quantity} - $ {cartItem.price}</p>
-                ))}
-                <p className='total_price'>Total price: $ {totalPrice}</p>
+                <CartItemDetails cartItems={cartItems}  totalPrice={totalPrice}/>
             </div>
 
             <div className='payment_data'>
