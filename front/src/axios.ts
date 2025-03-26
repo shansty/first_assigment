@@ -1,8 +1,7 @@
 import axios from "axios";
-import { TypeProduct, TypeUser } from "./types";
-import { Navigate, NavigateFunction, useNavigate } from "react-router-dom";
+import { TypeProduct, TypeUser, TypeCartItem, TypeOrder } from "./types";
 import { formatQuery } from "./utils";
-import { CATEGORY_URL, PRODUCT_URL, PRODUCT_SEARCH_URL, PRODUCT_ID_URL, USER_URL, USER_LOGIN_URL } from "./configs/axios_urls";
+import { CATEGORY_URL, PRODUCT_URL, PRODUCT_SEARCH_URL, PRODUCT_ID_URL, USER_URL, USER_LOGIN_URL, CART_URL, ORDER_URL } from "./configs/axios_urls";
 
 export const getCategoriesNames = async () => {
 
@@ -139,6 +138,72 @@ export const editUserData = async (user: TypeUser, user_id: string, token: strin
             window.alert(` ${err.response.data.message}`);
         } else {
             window.alert(`Error: ${err}`);
+        }
+    }
+}
+
+
+export const createOrder = async (user_id: string, deliveryMethod: string, paymentMethod: string, address: string, token: string, cartItems: TypeCartItem[]) => {
+    try {
+        const response = await axios.post(ORDER_URL, {user_id, deliveryMethod, paymentMethod, address, cartItems},
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+        const result: TypeCartItem = response.data.order;
+        return result;
+    } catch (err: any) {
+        if (err.response.data) {
+            window.alert(` ${err.response.data.message}`);
+        } else {
+            window.alert(`Error: ${err}`);
+
+        }
+    }
+}
+
+
+
+export const getUserOrders = async (token: string) => {
+    try {
+        const response = await axios.get(`${ORDER_URL}`, 
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+        const user_orders: TypeOrder[] = response.data.user_orders;
+        return user_orders;
+    } catch (err: any) {
+        if (err.response.data) {
+            window.alert(` ${err.response.data.message}`);
+        } else {
+            window.alert(`Error: ${err}`);
+
+        }
+    }
+}
+
+export const getOrderDetails = async (order_id: string, token: string) => {
+    try {
+        const response = await axios.get(`${ORDER_URL}/${order_id}`, 
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+        const order: TypeOrder = response.data.order;
+        return order;
+    } catch (err: any) {
+        if (err.response.data) {
+            window.alert(` ${err.response.data.message}`);
+        } else {
+            window.alert(`Error: ${err}`);
+
         }
     }
 }

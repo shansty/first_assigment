@@ -1,8 +1,8 @@
 import React from 'react';
 
 interface FormFieldProps {
-    value: string;
-    handleOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    value?: string;
+    handleOnChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     allowEdit?: boolean;
     id: string;
     minLength?: number;
@@ -10,6 +10,8 @@ interface FormFieldProps {
     required?: boolean;
     type?: string;
     placeholder?:string;
+    name?:string;
+    className?: string;
 }
 
 const FormField = React.memo<FormFieldProps>(({
@@ -21,7 +23,9 @@ const FormField = React.memo<FormFieldProps>(({
     maxLength,
     required,
     type,
-    placeholder
+    placeholder,
+    name, 
+    className = "profile_form_field"
 }) => {
 
     const formatFieldName = (str: string): string => {
@@ -32,7 +36,7 @@ const FormField = React.memo<FormFieldProps>(({
     };
 
     return (
-        <div className="profile_form_field">
+        <div className={className}>
             <label htmlFor={id}>{formatFieldName(id)}:</label>
             <input
                 minLength={minLength}
@@ -44,9 +48,13 @@ const FormField = React.memo<FormFieldProps>(({
                 disabled={allowEdit}
                 required={required}
                 placeholder={placeholder}
+                name={name}
             />
         </div>
     );
 });
 
 export default FormField;
+
+       
+

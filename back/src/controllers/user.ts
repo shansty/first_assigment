@@ -1,7 +1,5 @@
 import { Request, Response } from 'express';
 import { generateToken, getUserByQuery, updateUser, createUser } from './utils';
-import * as jwt from "jsonwebtoken";
-import { IJwtPayloadWithId } from '../middlewares/auth';
 
 
 

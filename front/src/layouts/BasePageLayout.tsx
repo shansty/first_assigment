@@ -10,7 +10,7 @@ interface BasePageLayoutProps {
 }
 
 const BasePageLayout: React.FC<BasePageLayoutProps> = ({ children }) => {
-    const { category, setCategory, searchResults, setSearchResults } = useAppContext();
+    const { category, setSearchResults } = useAppContext();
     const [isMenuOpen, setIsMenuOpen] = useState(true);
 
     const handleResultsUpdate = (newResults: TypeProduct[]) => {

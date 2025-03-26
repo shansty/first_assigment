@@ -16,3 +16,27 @@ export type TypeUser = {
     last_name?: string;
     address?: string
 };
+
+export type TypeCartItem = {
+    readonly _id?: string;
+    product_id?: string;
+    user_id?: string;
+    name?: string;
+    quantity?: number;
+    price?: number;
+};
+
+export type TypeOrder = {
+    readonly _id?: string;
+    order_items?: TypeCartItem[];
+    readonly user_id?: string;
+    status?: "Processing" | "Shipped" | "Completed" | "Cancelled";
+    total_amount?: number;
+    total_price?: number;
+    delivery?: {
+        method?: string;
+        address?: string;
+    };
+    payment_method?: "Card payment" | "Payment in cash to the courier" | "Payment by card to the courier";
+};
+
